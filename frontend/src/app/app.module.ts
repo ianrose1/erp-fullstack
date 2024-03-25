@@ -3,18 +3,25 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
 import { TeamsComponent } from './teams/teams.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { SelectCompanyComponent } from './select-company/select-company.component';
 import { DropdownMenuComponent } from './dropdown-menu/dropdown-menu.component';
 import { OverlayFormComponent } from './overlay-form/overlay-form.component';
 import { Routes } from '@angular/router';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { UsersComponent } from './components/users/users.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 const routes: Routes = [
   { path: "teams", component: TeamsComponent },
   { path: "projects", component: ProjectsComponent },
   { path: "select-company", component: SelectCompanyComponent }
 ];
+
 
 @NgModule({
   declarations: [
@@ -23,7 +30,13 @@ const routes: Routes = [
     ProjectsComponent,
     SelectCompanyComponent,
     DropdownMenuComponent,
-    OverlayFormComponent
+    OverlayFormComponent,
+    HomeComponent,
+    LoginComponent,
+    UsersComponent,
+    NavbarComponent,
+    LogoutComponent
+
   ],
   imports: [
     BrowserModule,
