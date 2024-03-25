@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Projects } from '../interfaces/projects';
+import { Projects } from '../../interfaces/projects';
 import { Teams } from 'src/app/interfaces/teams';
 
 @Component({
