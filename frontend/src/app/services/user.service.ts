@@ -12,7 +12,7 @@ export class UserService {
   private isLoggedInSubject = new BehaviorSubject<boolean>(true);
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
-  private isAdminSubject = new BehaviorSubject<boolean>(false);
+  private isAdminSubject = new BehaviorSubject<boolean>(true);
   isAdmin$ = this.isAdminSubject.asObservable();
 
   private currentUserSubject = new BehaviorSubject<FullUser | undefined>(undefined);
@@ -22,6 +22,10 @@ export class UserService {
   allUsers$ = this.allUsersSubject.asObservable();
 
   constructor() { }
+
+  allUsersObservable(): Observable<FullUser[]> {
+    return this.allUsersSubject.asObservable();
+  }
 
   isLoggedIn(): boolean {
     return this.isLoggedInSubject.getValue();

@@ -1,0 +1,32 @@
+.user-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    height: 90vh;
+    text-align: center;
+}
+
+.user-box {
+    border: 3px solid #C3A584;
+    border-radius: 10px;
+    width: 70%;
+}
+
+.mat-table {
+    background-color: #051623;
+}
+
+.mat-cell.active-yes,
+.mat-cell.admin-yes {
+  color: #00E676; /* Active green color */
+}
+
+.mat-cell.active-no,
+.mat-cell.admin-no {
+  color: #FF1744; /* Inactive red color */
+}
+
+.header {
+    color: #ffffff;
+}
