@@ -5,8 +5,11 @@ import org.springframework.stereotype.Repository;
 
 import com.cooksys.groupfinal.entities.Project;
 
+import java.util.List;
+import java.util.Set;
+
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 
-
+    Set<Project> findByTeam_Id(Long id);
 }
