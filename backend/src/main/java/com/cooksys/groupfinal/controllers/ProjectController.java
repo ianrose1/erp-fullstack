@@ -37,5 +37,10 @@ public class ProjectController {
 		return projectService.updateProject(projectId, projectDto);
 	}
 
+	@DeleteMapping("/project/{projectId}")
+	public ProjectDto deleteProject(@PathVariable long projectId){
+		return projectService.deleteProject(projectId);
+	}
+
 
 }

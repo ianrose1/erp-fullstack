@@ -12,4 +12,8 @@ import java.util.Set;
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 
     Set<Project> findByTeam_Id(Long id);
+
+    Set<Project> findByDeletedFalse();
+
+    Set<Project> findByTeam_IdAndDeletedFalse(Long id);
 }

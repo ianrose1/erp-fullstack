@@ -31,12 +31,12 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Set<ProjectDto> getAllProjects() {
-        return projectMapper.entitiesToDtos(new HashSet<>(projectRepository.findAll()));
+        return projectMapper.entitiesToDtos(projectRepository.findByDeletedFalse());
     }
 
     @Override
     public Set<ProjectDto> getProjectsByTeamId(long teamId) {
-        return projectMapper.entitiesToDtos(projectRepository.findByTeam_Id(teamId));
+        return projectMapper.entitiesToDtos(projectRepository.findByTeam_IdAndDeletedFalse(teamId));
     }
 
     @Override
@@ -44,18 +44,18 @@ public class ProjectServiceImpl implements ProjectService {
 
         Optional<Project> optionalProject = projectRepository.findById(projectId);
 
-        if(optionalProject.isEmpty() || projectDto == null){
+        if (optionalProject.isEmpty() || projectDto == null) {
             throw new BadRequestException("Information is not valid");
         }
 
         Project projectToUpdate = optionalProject.get();
-        if(projectDto.getName() != null) {
+        if (projectDto.getName() != null) {
             projectToUpdate.setName(projectDto.getName());
         }
-        if(projectDto.getDescription() != null) {
+        if (projectDto.getDescription() != null) {
             projectToUpdate.setDescription(projectDto.getDescription());
         }
-        if(projectDto.getTeam() != null){
+        if (projectDto.getTeam() != null) {
             projectToUpdate.setTeam(teamMapper.dtoToEntity(projectDto.getTeam()));
         }
         projectRepository.saveAndFlush(projectToUpdate);
@@ -65,7 +65,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public ProjectDto createProject(ProjectDto projectDto) {
-        if(projectDto == null){
+        if (projectDto == null) {
             throw new BadRequestException("Project cannot be null");
         }
         Project projectToCreate = projectMapper.dtoToEntity(projectDto);
@@ -73,6 +73,20 @@ public class ProjectServiceImpl implements ProjectService {
         projectToCreate.setTeam(teamMapper.dtoToEntity(projectDto.getTeam()));
 
         return projectMapper.entityToDto(projectToCreate);
+    }
+
+    @Override
+    public ProjectDto deleteProject(long projectId) {
+        Optional<Project> optionalProject = projectRepository.findById(projectId);
+        if (optionalProject.isEmpty()) {
+            throw new BadRequestException("Project does not exist");
+        }
+        Project projectToDelete = optionalProject.get();
+        if (projectToDelete.isDeleted()) {
+            throw new BadRequestException("Project is already deleted");
+        }
+        projectToDelete.setDeleted(true);
+        return projectMapper.entityToDto(projectRepository.saveAndFlush(projectToDelete));
     }
 
 }
