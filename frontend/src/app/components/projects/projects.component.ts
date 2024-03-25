@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Projects } from '../../interfaces/projects';
-import { Teams } from 'src/app/interfaces/teams';
+import { Project } from '../../interfaces/project';
+import { Team } from 'src/app/interfaces/team';
 
 @Component({
   selector: 'app-projects',

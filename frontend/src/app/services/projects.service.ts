@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from "rxjs";
 import axios from 'axios';
-import { Teams } from 'src/app/interfaces/teams';
-import { Projects } from 'src/app/interfaces/projects';
+import { Team } from 'src/app/interfaces/team';
+import { Project } from 'src/app/interfaces/project';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +12,8 @@ export class ProjectsService {
   private name = new BehaviorSubject<string>("");
   private description = new BehaviorSubject<string>("");
   private active = new BehaviorSubject<boolean>(false);
-  private team = new BehaviorSubject<Teams | undefined>(undefined);
-  private projects = new BehaviorSubject<Projects[]>([]);
+  private team = new BehaviorSubject<Team | undefined>(undefined);
+  private projects = new BehaviorSubject<Project[]>([]);
 
   constructor() { }
 
@@ -34,11 +34,11 @@ export class ProjectsService {
     return this.active.asObservable();
   }
 
-  get team$(): Observable<Teams | undefined> {
+  get team$(): Observable<Team | undefined> {
     return this.team.asObservable();
   }
 
-  get projects$(): Observable<Projects[]> {
+  get projects$(): Observable<Project[]> {
     return this.projects.asObservable();
   }
 
