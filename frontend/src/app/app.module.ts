@@ -4,11 +4,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { TeamsComponent } from './teams/teams.component';
-import { ProjectsComponent } from './projects/projects.component';
-import { SelectCompanyComponent } from './select-company/select-company.component';
-import { DropdownMenuComponent } from './dropdown-menu/dropdown-menu.component';
-import { OverlayFormComponent } from './overlay-form/overlay-form.component';
+import { TeamsComponent } from './components/teams/teams.component';
+import { ProjectsComponent } from './components/projects/projects.component';
+import { SelectCompanyComponent } from './components/select-company/select-company.component';
+import { DropdownMenuComponent } from './components/dropdown-menu/dropdown-menu.component';
+import { OverlayFormComponent } from './components/overlay-form/overlay-form.component';
 import { Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
