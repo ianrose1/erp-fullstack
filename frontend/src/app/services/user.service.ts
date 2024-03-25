@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import axios from 'axios';
-import User from 'src/app/models/User';
-import UserFull from 'src/app/models/UserFull';
+import User from 'src/app/interfaces/user';
+import UserFull from 'src/app/interfaces/user-full';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class UserService {
   private isLoggedInSubject = new BehaviorSubject<boolean>(true);
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
-  private isAdminSubject = new BehaviorSubject<boolean>(false);
+  private isAdminSubject = new BehaviorSubject<boolean>(true);
   isAdmin$ = this.isAdminSubject.asObservable();
 
   private currentUserSubject = new BehaviorSubject<User | undefined>(undefined);
