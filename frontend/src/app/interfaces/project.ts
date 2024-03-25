@@ -1,9 +1,9 @@
-import { Teams } from "./teams";
+import { Team } from "./team";
 
-export interface Projects {
+export interface Project {
     id: number,
     name: string,
     description: string,
     active: boolean,
-    team: [Teams]
+    team: [Team]
 }
