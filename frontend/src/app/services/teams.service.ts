@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import BasicUser from '../interfaces/basic-user';
-import axios from 'axios';
+import { Team } from '../interfaces/team';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TeamsService {
+  private databaseUrl: string;
   // Observables
   private teamIdSubject = new BehaviorSubject<number>(0);
   teamId$ = this.teamIdSubject.asObservable();
@@ -20,16 +22,17 @@ export class TeamsService {
   private teamUsersSubject = new BehaviorSubject<BasicUser[]>([]);
   teamUsers$ = this.teamUsersSubject.asObservable();
 
-  constructor() { }
+  constructor(private http: HttpClient) {
+    this.databaseUrl = "http://localhost:8080/"
+  }
 
   // gets list of non-deleted teams for the company
-  async fetchTeamsFromDB(companyId: number) {
-    try {
-      const response = await axios.get(`company/${companyId}/teams`);
+  fetchTeamsFromDB(companyId: number): Observable<Team[]> {
+    return this.http.get<Team[]>(this.databaseUrl + `company/${companyId}/teams`);
+  }
 
-    }
-    catch (error) {
-      console.error("Error fetching teams:", error);
-    }
+  // Adds a new team
+  addNewTeam(team: Team) {
+    return this.http.post<Team>(this.databaseUrl + `teams`, team);
   }
 }
