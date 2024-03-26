@@ -18,11 +18,11 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 
-const routes: Routes = [
-  { path: "teams", component: TeamsComponent },
-  { path: "projects", component: ProjectsComponent },
-  { path: "select-company", component: SelectCompanyComponent }
-];
+// const routes: Routes = [
+//   { path: "teams", component: TeamsComponent },
+//   { path: "projects", component: ProjectsComponent },
+//   { path: "select-company", component: SelectCompanyComponent }
+// ];
 
 
 @NgModule({

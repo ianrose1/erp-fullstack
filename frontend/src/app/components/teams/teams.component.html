@@ -1,1 +1,23 @@
-<p>teams works!</p>
+<div class="teams-page">
+    <h1>Teams</h1>
+    <div class="teams-box">
+        <div class="team-box">
+            <ul>
+                <li *ngFor="let team of teams">
+                    <p>{{ team.name }} # of Projects: {{ team.description }}</p>
+                    <div class="members">
+                        <h4>Members</h4>
+                        <ul>
+                            <li *ngFor="let user of team.users">
+                                <p>{{ user.profile.firstname }} {{ user.profile.lastname.charAt(0) }}.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <div class="new-team">
+                <p>New Team</p>
+            </div>
+        </div>
+    </div>
+</div>
