@@ -1,7 +1,23 @@
 <nav class="nav-bar">
-    <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><h1 class="link main-green">Home</h1></a>
-    <a *ngIf="isAdmin$ | async" routerLink="/company" routerLinkActive="active"><h1 class="link main-green">Company</h1></a>
-    <a routerLink="/teams" routerLinkActive="active"><h1 class="link main-green">Teams</h1></a>
-    <a *ngIf="isAdmin$ | async" routerLink="/users" routerLinkActive="active"><h1 class="link main-green">Users</h1></a>
-    <h1 class="link main-green clickable" (click)="logout()">Logout</h1>
+    <div class="nav-left">
+        <img src="assets/images/app-icon.png" alt="app-icon-alt"class="navbar-icon">
+        <!-- <span class="navbar-text">{{ userName$ | async }}</span> -->
+        <span class="navbar-text">Chris P.</span>
+    </div>
+    <div class="nav-right">
+        <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+            <h1 class="link main-green">Home</h1>
+        </a>
+        <a *ngIf="isAdmin$ | async" routerLink="/company" routerLinkActive="active">
+            <h1 class="link main-green">Company</h1>
+        </a>
+        <a routerLink="/teams" routerLinkActive="active">
+            <h1 class="link main-green">Teams</h1>
+        </a>
+        <a *ngIf="isAdmin$ | async" routerLink="/users" routerLinkActive="active">
+            <h1 class="link main-green">Users</h1>
+        </a>
+        <h1 class="link main-green clickable" (click)="logout()">Logout</h1>
+        <!-- <a href="javascript:void(0);" class="icon" (click)="toggleMenu()"><img class="nav-bar-icon" src="assets/images/nav-bar.png"></a> -->
+    </div>
 </nav>
