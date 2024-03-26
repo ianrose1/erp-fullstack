@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { TeamsComponent } from './components/teams/teams.component';
 import { ProjectsComponent } from './components/projects/projects.component';
@@ -43,7 +43,8 @@ const routes: Routes = [
     AppRoutingModule,
     NoopAnimationsModule,
     MatTableModule,
-    FormsModule 
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

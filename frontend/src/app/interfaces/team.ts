@@ -4,5 +4,5 @@ export interface Team {
     id: number,
     name: string,
     description: string,
-    user: [BasicUser]
+    users: [BasicUser]
 }

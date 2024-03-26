@@ -16,6 +16,7 @@ export class TeamsComponent implements OnInit {
 
     // Worker
     // get all worker teams
+
   }
 
   onClickNewTeam() {
