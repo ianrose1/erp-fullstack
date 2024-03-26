@@ -10,6 +10,8 @@ import Company from '../interfaces/company';
 })
 export class UserService {
 
+  private userNameSubject = new BehaviorSubject<string>("");
+
   private isLoggedInSubject = new BehaviorSubject<boolean>(true);
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
@@ -29,6 +31,15 @@ export class UserService {
   companyList$ = this.companyListSubject.asObservable();
 
   constructor() { }
+
+  getFirstAndLastInitial(firstName: string, lastName: string) {
+    const lastInitial = lastName.charAt(0).toUpperCase() + '.';
+    return `${firstName} ${lastInitial}`;
+  }
+
+  userNameObservable(){
+    return this.userNameSubject.asObservable();
+  }
 
   companyListObservable(){
     return this.companyListSubject.asObservable();
@@ -64,6 +75,9 @@ export class UserService {
 
   updateCurrentUser(newUser: UserFull | undefined) {
     this.currentUserSubject.next(newUser);
+    if (newUser){
+      this.userNameSubject.next(this.getFirstAndLastInitial(newUser.profile.firstname, newUser.profile.lastname));
+    }
   }
 
   async fetchAllUsers(companyId: number) {
