@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import axios from 'axios';
 import UserFull from 'src/app/interfaces/full-user';
 import FullUser from 'src/app/interfaces/full-user';
+import Company from '../interfaces/company';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,25 @@ export class UserService {
   private allUsersSubject = new BehaviorSubject<FullUser[]>([]);
   allUsers$ = this.allUsersSubject.asObservable();
 
+  private currentCompanyIdSubject = new BehaviorSubject<number>(-1);
+  currentCompanyId$ = this.currentCompanyIdSubject.asObservable();
+
+  private companyListSubject = new BehaviorSubject<Company[]>([]);
+  companyList$ = this.companyListSubject.asObservable();
+
   constructor() { }
+
+  companyListObservable(){
+    return this.companyListSubject.asObservable();
+  }
+  
+  updateCurrentCompanyId(newId: number) {
+    this.currentCompanyIdSubject.next(newId);
+  }
+
+  currentCompanyIdObservable() {
+    return this.currentCompanyIdSubject.asObservable();
+  }
 
   allUsersObservable(): Observable<FullUser[]> {
     return this.allUsersSubject.asObservable();
