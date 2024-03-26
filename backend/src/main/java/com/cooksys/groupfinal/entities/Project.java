@@ -26,4 +26,6 @@ public class Project {
 	@ManyToOne
 	private Team team;
 
+	private boolean deleted;
+
 }
