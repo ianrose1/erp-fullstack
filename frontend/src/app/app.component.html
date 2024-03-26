@@ -1,5 +1,5 @@
 <div class="main-font">
-  <app-navbar></app-navbar>
+  <app-navbar *ngIf="isLoggedIn$ | async"></app-navbar>
   <div>
       <router-outlet></router-outlet>
   </div>
