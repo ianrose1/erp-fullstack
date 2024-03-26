@@ -16,6 +16,7 @@ public interface BasicUserMapper {
     Set<BasicUserDto> entitiesToBasicUserDtos(Set<User> users);
     
     User requestDtoToEntity(UserRequestDto userRequestDto);
+    Set<User> basicUserDtosToEntities(Set<BasicUserDto> basicUserDto);
     
 
 }
