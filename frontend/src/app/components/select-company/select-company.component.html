@@ -1,0 +1,11 @@
+<form [formGroup]="configForm" (change)="onSelect()">
+    <div class="form-group">
+        <select class="select" formControlName="selectedCompany" id="selectedCompany">
+            <option value="" disabled selected>Pick an option</option>
+            <option *ngFor="let company of companies" [value]="company">
+                {{ company }}
+                <!-- Value is company.id and company.name is displayed -->
+            </option>
+        </select>
+    </div>
+</form>

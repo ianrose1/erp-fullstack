@@ -1,0 +1,68 @@
+.nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #DEB992;
+}
+
+.nav-left,
+.nav-right {
+    display: flex;
+    align-items: center;
+    /* Ensures items within these divs are vertically centered */
+}
+
+.nav-right a,
+.nav-right h1 {
+    /* margin-left: 20px; */
+    /* Adds some space between the navigation items */
+}
+
+.navbar-icon {
+    margin: 2% 5% 2% 10%;
+    width: 15%;
+    height: auto;
+    /* Adds some space between the icon and the text */
+}
+
+.navbar-text {
+    color: #F24E1E;
+
+}
+
+.nav-bar-icon {
+    width: 50%;
+    height: auto;
+}
+
+.link {
+    font-style: normal;
+    font-weight: 100;
+    font-size: 35px;
+    text-align: center;
+    padding: 0 5vh;
+}
+
+a {
+    text-decoration: none;
+}
+
+.active {}
+
+a.active>h1.link {
+    color: orange;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+/* Responsive adjustments for smaller screens */
+/* @media screen and (max-width: 600px) {
+    .nav-right .link:not(:first-child), .nav-right a:not(:first-child) {
+      display: none; 
+    }
+    .nav-right a.icon {
+      display: block;
+    }
+  } */
