@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 html {
-    background-color: #051623;
+    background-color: #051622;
 }
 
 .white {
@@ -13,7 +13,7 @@ html {
 }
 
 .main-green {
-    color: #1CA098;
+    color: #1BA098;
 }
 
 .main-nav-border {
@@ -24,6 +24,9 @@ html {
     color: #C3A584;
 }
 
-.main-annoucement {
-    color: #0C2D45;
+.main-announcement {
+    color: #0B2D45;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 
@@ -9,8 +10,13 @@ import { UserService } from 'src/app/services/user.service';
 })
 
 export class NavbarComponent {
-  isAdmin$: Observable<boolean> = this.UserService.isAdminObservable();
+  isAdmin$: Observable<boolean> = this.userService.isAdminObservable();
 
-  constructor(private UserService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
+
+  logout(){
+    this.userService.logout();
+    this.router.navigate(['login']);
+  }
 
 }
