@@ -18,4 +18,7 @@ public interface UserService {
     FullUserDto deleteUser(long userId);
 
     FullUserDto createUser(UserRequestDto userRequestDto);
+
+	FullUserDto updateUser(long userId, UserRequestDto userRequestDto);
+	
 }

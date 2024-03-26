@@ -99,5 +99,31 @@ public class UserServiceImpl implements UserService {
         return fullUserMapper.entityToFullUserDto(userToCreate);
     }
 
+	@Override
+	public FullUserDto updateUser(long userId, UserRequestDto userRequestDto) {
+		
+	    if (userRequestDto == null) {
+	        throw new BadRequestException("User information cannot be null");
+	    }
+
+	    User userToUpdate = userRepository.findByIdAndActiveTrue(userId);
+	    if (userToUpdate == null) {
+	        throw new NotFoundException("User not found with ID: " + userId);
+	    }	    
+	    if (userRequestDto.getCredentials() != null) {
+	    	userToUpdate.setCredentials(credentialsMapper.dtoToEntity(userRequestDto.getCredentials()));
+	    }	    
+	    if (userRequestDto.getProfile() != null) {
+	    	userToUpdate.setProfile(profileMapper.dtoToEntity(userRequestDto.getProfile()));
+	    }
+	    if (userRequestDto.isAdmin() == false) {
+	    	userToUpdate.setAdmin(false);
+	    }
+	    
+	    userRepository.saveAndFlush(userToUpdate);
+	    return fullUserMapper.entityToFullUserDto(userToUpdate);
+	    
+	}
+
 
 }

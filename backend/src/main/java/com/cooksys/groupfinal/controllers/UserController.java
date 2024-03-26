@@ -44,5 +44,10 @@ public class UserController {
     public FullUserDto createUser(@RequestBody UserRequestDto userRequestDto) {
         return userService.createUser(userRequestDto);
     }
+    
+    @PatchMapping()
+    public FullUserDto updateUser(@PathVariable long userId, @RequestBody UserRequestDto userRequestDto) {
+    	return userService.updateUser(userId, userRequestDto); 
+    }
 
 }
