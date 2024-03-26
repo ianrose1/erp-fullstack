@@ -13,4 +13,8 @@ public interface TeamService {
     TeamDto deleteTeam(long teamId);
 
     TeamDto createTeam(TeamDto teamDto);
+
+	TeamDto updateTeam(long teamId, TeamDto teamDto);
+
+	
 }
