@@ -28,7 +28,7 @@ public class AnnouncementController {
 	
 	@PostMapping 
 	public AnnouncementDto createAnnouncement(@RequestBody AnnouncementRequestDto announcementRequestDto) {
-		return announcementService.createAnnouncement();
+		return announcementService.createAnnouncement(announcementRequestDto);
 	}
 	
 

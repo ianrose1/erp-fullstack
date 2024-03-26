@@ -1,5 +1,6 @@
 package com.cooksys.groupfinal.dtos;
 
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -7,10 +8,13 @@ import lombok.NoArgsConstructor;
 @Data
 public class AnnouncementRequestDto {
 	
-    private String title;
+	private CredentialsDto credentials;
+	
+	private String companyName;
+	
+	private String title;
     
     private String message;
     
-    private BasicUserDto author;
 
 }
