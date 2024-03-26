@@ -1,8 +1,8 @@
-import User from "./user";
+import BasicUser from "./basic-user";
 
 export interface Team {
     id: number,
     name: string,
     description: string,
-    user: [User]
+    users: [BasicUser]
 }
