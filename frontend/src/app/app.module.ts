@@ -14,7 +14,6 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { UsersComponent } from './components/users/users.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { LogoutComponent } from './components/logout/logout.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 
@@ -36,9 +35,7 @@ const routes: Routes = [
     HomeComponent,
     LoginComponent,
     UsersComponent,
-    NavbarComponent,
-    LogoutComponent
-
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
