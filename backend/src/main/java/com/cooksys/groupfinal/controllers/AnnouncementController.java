@@ -32,7 +32,7 @@ public class AnnouncementController {
 //		return announcementService.createAnnouncement(announcementRequestDto);
 //	}
 	
-	@PostMapping 
+	@PostMapping("/{userId}/{companyId}") 
 	public AnnouncementDto createAnnouncement(@PathVariable Long userId, @PathVariable Long companyId,  @RequestBody AnnouncementRequestDto announcementRequestDto) {
 		return announcementService.createAnnouncement(userId, companyId, announcementRequestDto);
 	}
