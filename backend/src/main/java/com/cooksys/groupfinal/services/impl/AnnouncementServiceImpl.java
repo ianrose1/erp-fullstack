@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.cooksys.groupfinal.dtos.AnnouncementDto;
 import com.cooksys.groupfinal.dtos.AnnouncementRequestDto;
+import com.cooksys.groupfinal.dtos.BasicUserDto;
 import com.cooksys.groupfinal.entities.Announcement;
+import com.cooksys.groupfinal.entities.Company;
 import com.cooksys.groupfinal.entities.Credentials;
 import com.cooksys.groupfinal.entities.User;
 import com.cooksys.groupfinal.exceptions.NotFoundException;
@@ -18,6 +20,7 @@ import com.cooksys.groupfinal.mappers.BasicUserMapper;
 import com.cooksys.groupfinal.mappers.CompanyMapper;
 import com.cooksys.groupfinal.mappers.CredentialsMapper;
 import com.cooksys.groupfinal.repositories.AnnouncementRepository;
+import com.cooksys.groupfinal.repositories.CompanyRepository;
 import com.cooksys.groupfinal.repositories.UserRepository;
 import com.cooksys.groupfinal.services.AnnouncementService;
 import com.cooksys.groupfinal.services.UserService;
@@ -30,11 +33,9 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	
 	private final AnnouncementRepository announcementRepository;
 	private final UserRepository userRepository;
+	private final CompanyRepository companyRepository;
 	private final AnnouncementMapper announcementMapper;
-	private final CompanyMapper companyMapper;
-	private final BasicUserMapper basicUserMapper;
 	private final CredentialsMapper credentialsMapper;
-	private final UserService userService;
 	
 	@Override
 	public Set<AnnouncementDto> getAllAnnouncements() {
@@ -46,21 +47,29 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	@Override
 	public AnnouncementDto createAnnouncement(AnnouncementRequestDto announcementRequestDto) {
 		
-//		Credentials creds = credentialsMapper.dtoToEntity(announcementRequestDto.getCredentials());
-//		
-//		Optional<User> optionalUser = userRepository.findByCredentialsUsernameAndActiveTrue(creds.getUsername());
-//        if (optionalUser.isEmpty()) {
-//            throw new NotFoundException("The username provided does not belong to an active user.");
-//        }
-//        User author = optionalUser.get();
-//		
-//		
-//		Announcement announcement = announcementMapper.dtoToEntity(announcementRequestDto);
-//		Announcement createdAnnouncement = announcementRepository.saveAndFlush(announcement);
-//		createdAnnouncement.setAuthor(author);
+		// Assuming we retain this info after the login flow
+		Credentials creds = credentialsMapper.dtoToEntity(announcementRequestDto.getCredentials());
 		
+		Optional<User> optionalUser = userRepository.findByCredentialsUsernameAndActiveTrue(creds.getUsername());
+        if (optionalUser.isEmpty()) {
+            throw new NotFoundException("The username provided does not belong to an active user.");
+        }
+        User author = optionalUser.get();
+        
+        // Assuming we will get the company name from the selected option from the dropdown
+        Optional<Company> optionalCompany = companyRepository.findByName(announcementRequestDto.getCompanyName());
+        if (optionalCompany.isEmpty()) {
+        	throw new  NotFoundException("The company's name provided does not exist.");
+        }
+        Company company = optionalCompany.get();
+        
 		
-		return null;
+		Announcement announcement = announcementMapper.dtoToEntity(announcementRequestDto);
+		Announcement createdAnnouncement = announcementRepository.saveAndFlush(announcement);
+		createdAnnouncement.setAuthor(author); // TODO: to revisit as AnnouncementDto currently has a BasicUserDto author field
+		createdAnnouncement.setCompany(company);
+		
+		return announcementMapper.entityToDto(createdAnnouncement);
 	}
 	
 

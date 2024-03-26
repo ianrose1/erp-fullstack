@@ -10,7 +10,7 @@ import com.cooksys.groupfinal.entities.Company;
 @Repository
 public interface CompanyRepository extends JpaRepository<Company, Long> {
 	
-	Optional<Company> findByName();
+	Optional<Company> findByName(String name);
 
 
 }
