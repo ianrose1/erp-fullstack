@@ -7,8 +7,16 @@
     text-align: center;
 }
 
+.add-user-button{
+    background-color: #1BA098; /* Example blue color */
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+}
+
 .user-box {
-    border: 3px solid #C3A584;
+    border: 3px solid #DEB992;
     border-radius: 10px;
     width: 70%;
 }
@@ -19,14 +27,14 @@
 
 .mat-cell.active-yes,
 .mat-cell.admin-yes {
-  color: #00E676; /* Active green color */
+  color: #00B11C; /* Active green color */
 }
 
 .mat-cell.active-no,
 .mat-cell.admin-no {
-  color: #FF1744; /* Inactive red color */
+  color: #FF0000; /* Inactive red color */
 }
 
 .header {
-    color: #ffffff;
+    color: #FFFFFF;
 }
