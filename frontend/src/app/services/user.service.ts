@@ -28,7 +28,7 @@ export class UserService {
   }
 
   isLoggedIn(): boolean {
-    return this.isLoggedInSubject.getValue();
+    return this.isLoggedInSubject.value;
   }
 
   isLoggedInObservable(): Observable<boolean> {
@@ -36,7 +36,7 @@ export class UserService {
   }
 
   isAdmin(): boolean {
-    return this.isAdminSubject.getValue();
+    return this.isAdminSubject.value;
   }
 
   isAdminObservable(): Observable<boolean> {
@@ -114,5 +114,15 @@ export class UserService {
   logout() {
     this.isLoggedInSubject.next(false);
     this.isAdminSubject.next(false);
+  }
+
+  loginAsNotAdmin() {
+    this.isLoggedInSubject.next(true);
+    this.isAdminSubject.next(false);
+  }
+
+  loginAsAdmin() {
+    this.isLoggedInSubject.next(true);
+    this.isAdminSubject.next(true);
   }
 }

@@ -29,7 +29,7 @@
             </div>
         </div>
     </div>
-    <div class="announcements" *ngFor="let announcement in announcements$ | async">
+    <div class="announcements" *ngFor="let announcement of announcements$ | async">
         <div class="announcement-container">
             <div class="announcement-content">
                 <div class="announcement-header">

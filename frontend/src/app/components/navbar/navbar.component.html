@@ -3,5 +3,5 @@
     <a *ngIf="isAdmin$ | async" routerLink="/company" routerLinkActive="active"><h1 class="link main-green">Company</h1></a>
     <a routerLink="/teams" routerLinkActive="active"><h1 class="link main-green">Teams</h1></a>
     <a *ngIf="isAdmin$ | async" routerLink="/users" routerLinkActive="active"><h1 class="link main-green">Users</h1></a>
-    <a routerLink="/login" routerLinkActive="active"><h1 class="link main-green">Logout</h1></a>
+    <h1 class="link main-green" (click)="logout()">Logout</h1>
 </nav>
