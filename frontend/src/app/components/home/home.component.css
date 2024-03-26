@@ -1,0 +1,86 @@
+.new-announcement-button {
+    background-color: #1BA098;
+    /* Example blue color */
+    color: #FFFFFF;
+    padding: 1% 5%;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.25em;
+}
+
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    height: 90vh;
+    /* width: 70%; */
+    /* text-align: center; */
+}
+
+.banner-container {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    border-bottom: 2px solid #DEB992;
+}
+
+.title {
+    font-size: 3em;
+    color: #1BA098;
+    font-weight: 100;
+    margin-bottom: 0;
+
+}
+
+.button-container {
+    display: flex;
+    justify-content: right;
+    margin-right: 5%;
+    margin-bottom: 2%;
+}
+
+.announcements {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.announcement-container{
+    background-color: #0B2D45;
+    margin: 2% 4%; 
+    border-radius: 15px;
+    width: 50%;
+}
+.announcement-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 2% 10%;
+}
+
+.announcement-header{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.announcement-author{
+    width: 50%;
+    text-align: left;
+}
+
+.announcement-date {
+    width: 50%;
+    text-align: right;
+}
+
+.announcement-body{
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    line-height: 1.5;
+}

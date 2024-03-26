@@ -1,0 +1,10 @@
+/* Continue to style */
+
+.select {
+    background-color: white;
+    text-align: center;
+    color: rgb(184, 101, 217);
+    border: 1px solid lavender;
+    padding: 10px;
+    border-radius: 5px;
+}
