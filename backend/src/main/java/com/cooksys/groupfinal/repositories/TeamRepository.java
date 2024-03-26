@@ -5,8 +5,13 @@ import org.springframework.stereotype.Repository;
 
 import com.cooksys.groupfinal.entities.Team;
 
+import java.util.Set;
+
 @Repository
 public interface TeamRepository extends JpaRepository<Team, Long> {
 
 
+    Set<Team> findByDeletedFalse();
+
+    Team findByIdAndDeletedFalse(Long id);
 }
