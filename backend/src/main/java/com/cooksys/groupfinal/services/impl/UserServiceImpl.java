@@ -80,6 +80,7 @@ public class UserServiceImpl implements UserService {
             throw new BadRequestException("No user found");
         }
         user.setActive(false);
+        user.setStatus("DELETED");
         return fullUserMapper.entityToFullUserDto(userRepository.saveAndFlush(user));
     }
 
@@ -90,6 +91,7 @@ public class UserServiceImpl implements UserService {
         }
 
         User userToCreate = fullUserMapper.requestDtoToEntity(userRequestDto);
+        userToCreate.setActive(true);
         userRepository.saveAndFlush(userToCreate);
         userToCreate.setCredentials(credentialsMapper.dtoToEntity(userRequestDto.getCredentials()));
         userToCreate.setProfile(profileMapper.dtoToEntity(userRequestDto.getProfile()));
