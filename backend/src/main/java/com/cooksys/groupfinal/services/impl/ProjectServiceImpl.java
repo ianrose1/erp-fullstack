@@ -31,12 +31,12 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Set<ProjectDto> getAllProjects() {
-        return projectMapper.entitiesToDtos(projectRepository.findByDeletedFalse());
+        return projectMapper.entitiesToDtos(projectRepository.findByActiveFalse());
     }
 
     @Override
     public Set<ProjectDto> getProjectsByTeamId(long teamId) {
-        return projectMapper.entitiesToDtos(projectRepository.findByTeam_IdAndDeletedFalse(teamId));
+        return projectMapper.entitiesToDtos(projectRepository.findByTeam_IdAndActiveFalse(teamId));
     }
 
     @Override
@@ -82,10 +82,10 @@ public class ProjectServiceImpl implements ProjectService {
             throw new BadRequestException("Project does not exist");
         }
         Project projectToDelete = optionalProject.get();
-        if (projectToDelete.isDeleted()) {
+        if (!projectToDelete.isActive()) {
             throw new BadRequestException("Project is already deleted");
         }
-        projectToDelete.setDeleted(true);
+        projectToDelete.setActive(false);
         return projectMapper.entityToDto(projectRepository.saveAndFlush(projectToDelete));
     }
 
