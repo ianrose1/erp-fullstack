@@ -43,7 +43,7 @@ public class TeamController {
 		return teamService.deleteTeam(teamId);
 	}
 	
-	@PatchMapping("{projectId}")
+	@PatchMapping("{teamId}")
 	public TeamDto updateTeam(@PathVariable long teamId, @RequestBody TeamDto teamDto) {
 		return teamService.updateTeam(teamId, teamDto);
 	}
