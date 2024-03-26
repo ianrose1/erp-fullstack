@@ -5,5 +5,5 @@ export interface Project {
     name: string,
     description: string,
     active: boolean,
-    team: [Team]
+    teams: [Team]
 }

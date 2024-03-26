@@ -11,13 +11,13 @@ import { ProjectsComponent } from './components/projects/projects.component';
 import { TeamsComponent } from './components/teams/teams.component';
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent, canActivate: [NotLoggedInGuard]},
-  {path: '', component: HomeComponent, canActivate: [LoggedInGuard]},
+  { path: 'login', component: LoginComponent, canActivate: [NotLoggedInGuard] },
+  { path: '', component: HomeComponent, canActivate: [LoggedInGuard] },
   // {path: 'home', component: HomeComponent, canActivate: [LoggedInGuard]},
-  {path: 'company', component: SelectCompanyComponent, canActivate: [LoggedInGuard, AdminGuard]},
-  {path: 'project', component: SelectCompanyComponent, canActivate: [LoggedInGuard, AdminGuard]},
-  {path: 'teams', component: TeamsComponent, canActivate: [LoggedInGuard]},
-  {path: 'users', component: UsersComponent, canActivate: [LoggedInGuard, AdminGuard]}
+  { path: 'company', component: SelectCompanyComponent, canActivate: [LoggedInGuard, AdminGuard] },
+  { path: 'project', component: SelectCompanyComponent, canActivate: [LoggedInGuard, AdminGuard] },
+  { path: 'teams', component: TeamsComponent, canActivate: [LoggedInGuard] },
+  { path: 'users', component: UsersComponent, canActivate: [LoggedInGuard, AdminGuard] }
 ];
 
 @NgModule({
