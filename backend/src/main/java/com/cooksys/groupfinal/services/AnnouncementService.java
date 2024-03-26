@@ -8,5 +8,7 @@ public interface AnnouncementService {
 
 	Set<AnnouncementDto> getAllAnnouncements();
 
+	AnnouncementDto createAnnouncement();
+
 
 }

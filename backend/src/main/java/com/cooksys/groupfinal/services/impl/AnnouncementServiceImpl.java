@@ -27,6 +27,12 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 		Set<Announcement> announcementsSet = new HashSet<>(announcementsList);		
 		return announcementMapper.entitiesToDtos(announcementsSet);
 	}
+
+	@Override
+	public AnnouncementDto createAnnouncement() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }
