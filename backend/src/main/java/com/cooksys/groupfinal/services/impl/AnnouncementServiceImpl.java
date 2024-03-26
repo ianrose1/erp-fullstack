@@ -64,12 +64,14 @@ public class AnnouncementServiceImpl implements AnnouncementService {
         Company company = optionalCompany.get();
         
 		
-		Announcement announcement = announcementMapper.dtoToEntity(announcementRequestDto);
-		Announcement createdAnnouncement = announcementRepository.saveAndFlush(announcement);
-		createdAnnouncement.setAuthor(author); // TODO: to revisit as AnnouncementDto currently has a BasicUserDto author field
-		createdAnnouncement.setCompany(company);
+		Announcement announcementToCreate = announcementMapper.dtoToEntity(announcementRequestDto);
+		announcementRepository.save(announcementToCreate);
+		announcementToCreate.setAuthor(author); // TODO: to revisit as AnnouncementDto currently has a BasicUserDto author field
+		announcementToCreate.setCompany(company);
 		
-		return announcementMapper.entityToDto(createdAnnouncement);
+		announcementRepository.saveAndFlush(announcementToCreate);
+		
+		return announcementMapper.entityToDto(announcementToCreate);
 	}
 	
 
