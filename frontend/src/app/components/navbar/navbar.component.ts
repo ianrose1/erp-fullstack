@@ -10,13 +10,20 @@ import { UserService } from 'src/app/services/user.service';
 })
 
 export class NavbarComponent {
+  userName$: Observable<string> = this.userService.userNameObservable();
   isAdmin$: Observable<boolean> = this.userService.isAdminObservable();
+  showMenu = false;
+
 
   constructor(private userService: UserService, private router: Router) {}
 
   logout(){
     this.userService.logout();
     this.router.navigate(['login']);
+  }
+
+  toggleMenu() {
+    this.showMenu = !this.showMenu;
   }
 
 }
