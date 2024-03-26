@@ -38,4 +38,6 @@ public class Team {
 	@EqualsAndHashCode.Exclude
 	private Set<Project> projects = new HashSet<>();
 
+	private boolean deleted;
+
 }
