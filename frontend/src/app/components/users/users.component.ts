@@ -9,8 +9,8 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent {
-  allUsers$: Observable<FullUser[]> = this.UserService.allUsersObservable();
+  allUsers$: Observable<FullUser[]> = this.userService.allUsersObservable();
 
-  constructor(private UserService: UserService) {}
+  constructor(private userService: UserService) {}
 
 }

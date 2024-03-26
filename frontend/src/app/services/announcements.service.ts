@@ -13,6 +13,10 @@ export class AnnouncementsService {
 
   constructor() { }
 
+  announcementObservable(){
+    return this.announcementsSubject.asObservable();
+  }
+
   async fetchAnnouncements(companyId: number) {
     try {
       const response = await axios.get(`/company/${companyId}/announcements`);
