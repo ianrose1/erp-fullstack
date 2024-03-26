@@ -59,4 +59,9 @@ justify-content: center;
     border-radius: 22px;
     background-color: #051622;
     color: #FFFFFF;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #1BA098;
 }
