@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import axios from 'axios';
-import User from 'src/app/interfaces/user';
 import UserFull from 'src/app/interfaces/full-user';
+import FullUser from 'src/app/interfaces/full-user';
 
 @Injectable({
   providedIn: 'root'
@@ -12,16 +12,23 @@ export class UserService {
   private isLoggedInSubject = new BehaviorSubject<boolean>(true);
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
-  private isAdminSubject = new BehaviorSubject<boolean>(false);
+  private isAdminSubject = new BehaviorSubject<boolean>(true);
   isAdmin$ = this.isAdminSubject.asObservable();
 
-  private currentUserSubject = new BehaviorSubject<User | undefined>(undefined);
+  private currentUserSubject = new BehaviorSubject<FullUser | undefined>(undefined);
   currentUser$ = this.currentUserSubject.asObservable();
+
+  private allUsersSubject = new BehaviorSubject<FullUser[]>([]);
+  allUsers$ = this.allUsersSubject.asObservable();
 
   constructor() { }
 
+  allUsersObservable(): Observable<FullUser[]> {
+    return this.allUsersSubject.asObservable();
+  }
+
   isLoggedIn(): boolean {
-    return this.isLoggedInSubject.getValue();
+    return this.isLoggedInSubject.value;
   }
 
   isLoggedInObservable(): Observable<boolean> {
@@ -29,7 +36,7 @@ export class UserService {
   }
 
   isAdmin(): boolean {
-    return this.isAdminSubject.getValue();
+    return this.isAdminSubject.value;
   }
 
   isAdminObservable(): Observable<boolean> {
@@ -37,8 +44,17 @@ export class UserService {
   }
 
   updateCurrentUser(newUser: UserFull | undefined) {
-    const convertedUser: User | undefined = undefined;
-    this.currentUserSubject.next(convertedUser);
+    this.currentUserSubject.next(newUser);
+  }
+
+  async fetchAllUsers(companyId: number) {
+    try {
+      const response = await axios.get(`/company/${companyId}/users`)
+      console.log("All Users Response Data: ", response.data);
+      this.allUsersSubject.next(response.data);
+    } catch (error) {
+        console.error("Error fetching users:", error);
+    }
   }
 
   async fetchUserFromDB(username: string, password: string) {
@@ -98,5 +114,15 @@ export class UserService {
   logout() {
     this.isLoggedInSubject.next(false);
     this.isAdminSubject.next(false);
+  }
+
+  loginAsNotAdmin() {
+    this.isLoggedInSubject.next(true);
+    this.isAdminSubject.next(false);
+  }
+
+  loginAsAdmin() {
+    this.isLoggedInSubject.next(true);
+    this.isAdminSubject.next(true);
   }
 }

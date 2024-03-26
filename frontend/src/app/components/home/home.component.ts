@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import Announcement from 'src/app/interfaces/announcement';
+import { AnnouncementsService } from 'src/app/services/announcements.service';
 
 @Component({
   selector: 'app-home',
@@ -6,5 +9,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+
+  announcements$: Observable<Announcement[]> = this.announcementService.announcementObservable();
+
+  constructor(private announcementService: AnnouncementsService) {}
 
 }

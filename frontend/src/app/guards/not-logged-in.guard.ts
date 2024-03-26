@@ -7,7 +7,6 @@ export const NotLoggedInGuard = () => {
     const userService: UserService = inject(UserService);
     const router: Router = inject(Router);
 
-    console.log("Not Logged In Guard: ", userService.isLoggedIn());
     if (!userService.isLoggedIn()) {
       return true;
     } else {

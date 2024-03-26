@@ -1,4 +1,32 @@
-<div class="white">
-    <p>Login works!</p>
+<div class="login-container white">
+    <div class="login-header">
+        <h1>COOK SYSTEMS</h1>
+        <h3>A FINAL APP</h3>
+    </div>
+    <div class="login-box">
+        <div class="login-form">
+            <form class="_form" (ngSubmit)="onSubmit()">
+                <input class="input-box" type="email" [(ngModel)]="loginData.email" placeholder="email" name="email" required>
+                <br>
+                <input class="input-box" type="password" [(ngModel)]="loginData.password" placeholder="password" name="password" required>
+                <br>
+                <button class="submit-button" type="submit">Login</button>
+                <div *ngIf="loginFailed" class="error-message">
+                    <p>Invalid credentials, please try again</p>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <div class="login-container">
+
+        <div class="white">
+            <br>
+            <br>
+            <button (click)="loginAdmin()">Login Admin</button>
+            <button (click)="loginNotAdmin()">Login Not Admin</button>
+                    
+        </div>
+    </div>
 </div>
 
