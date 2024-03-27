@@ -51,3 +51,15 @@ select {
     padding: 4px 15px;
     border-radius: 5px;
 }
+
+.cancel-icon {
+    width: 15%;
+    height: auto;
+    cursor: pointer;
+}
+
+.cancel-container {
+    display: flex;
+    width: 100%;
+    justify-content: right;
+}
