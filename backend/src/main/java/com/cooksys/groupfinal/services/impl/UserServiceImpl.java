@@ -3,6 +3,7 @@ package com.cooksys.groupfinal.services.impl;
 import java.util.Optional;
 import java.util.Set;
 
+import com.cooksys.groupfinal.dtos.LoginDto;
 import com.cooksys.groupfinal.dtos.UserRequestDto;
 import com.cooksys.groupfinal.mappers.ProfileMapper;
 import org.springframework.stereotype.Service;
@@ -31,25 +32,31 @@ public class UserServiceImpl implements UserService {
     private final FullUserMapper fullUserMapper;
     private final CredentialsMapper credentialsMapper;
     private final ProfileMapper profileMapper;
+    private final EncryptionService encryptionService;
 
-    private User findUser(String username) {
-        Optional<User> user = userRepository.findByCredentialsUsernameAndActiveTrue(username);
+    private User findUser(String email) {
+        Optional<User> user = userRepository.findByProfileEmailAndActiveTrue(email);
         if (user.isEmpty()) {
-            throw new NotFoundException("The username provided does not belong to an active user.");
+            throw new NotFoundException("The email provided does not belong to an active user.");
         }
         return user.get();
     }
 
     @Override
-    public FullUserDto login(CredentialsDto credentialsDto) {
-        if (credentialsDto == null || credentialsDto.getUsername() == null || credentialsDto.getPassword() == null) {
-            throw new BadRequestException("A username and password are required.");
+    public FullUserDto login(LoginDto loginDto) {
+
+        if (loginDto == null || loginDto.getEmail() == null || loginDto.getPassword() == null) {
+            throw new BadRequestException("An email and password are required.");
         }
-        Credentials credentialsToValidate = credentialsMapper.dtoToEntity(credentialsDto);
-        User userToValidate = findUser(credentialsDto.getUsername());
-        if (!userToValidate.getCredentials().equals(credentialsToValidate)) {
-            throw new NotAuthorizedException("The provided credentials are invalid.");
+
+        User userToValidate = findUser(loginDto.getEmail());
+
+        if(!encryptionService.verifyPassword(loginDto.getPassword(), userToValidate.getCredentials().getPassword())){
+            throw new NotAuthorizedException("Provided credentials are invalid.");
         }
+//        if (!userToValidate.getCredentials().equals(credentialsToValidate)) {
+//            throw new NotAuthorizedException("The provided credentials are invalid.");
+//        }
         if (userToValidate.getStatus().equals("PENDING")) {
             userToValidate.setStatus("JOINED");
             userRepository.saveAndFlush(userToValidate);
@@ -92,9 +99,14 @@ public class UserServiceImpl implements UserService {
 
         User userToCreate = fullUserMapper.requestDtoToEntity(userRequestDto);
         userToCreate.setActive(true);
+
+        Credentials credentials = credentialsMapper.dtoToEntity(userRequestDto.getCredentials());
+        credentials.setPassword(encryptionService.encryptPassword(credentials.getPassword()));
+
+        userToCreate.setCredentials(credentials);
         userRepository.saveAndFlush(userToCreate);
-        userToCreate.setCredentials(credentialsMapper.dtoToEntity(userRequestDto.getCredentials()));
         userToCreate.setProfile(profileMapper.dtoToEntity(userRequestDto.getProfile()));
+
 
         return fullUserMapper.entityToFullUserDto(userToCreate);
     }
@@ -140,7 +152,7 @@ public class UserServiceImpl implements UserService {
             userToUpdate.getCredentials().setUsername(credentialsDto.getUsername());
         }
         if(credentialsDto.getPassword() != null){
-            userToUpdate.getCredentials().setPassword(credentialsDto.getPassword());
+            userToUpdate.getCredentials().setPassword(encryptionService.encryptPassword(credentialsDto.getPassword()));
         }
         userRepository.saveAndFlush(userToUpdate);
 
