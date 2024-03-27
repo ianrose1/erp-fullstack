@@ -25,7 +25,7 @@ export class UserService {
   private allUsersSubject = new BehaviorSubject<FullUser[]>([]);
   allUsers$ = this.allUsersSubject.asObservable();
 
-  private currentCompanyIdSubject = new BehaviorSubject<number>(-1);
+  private currentCompanyIdSubject = new BehaviorSubject<number>(6);
   currentCompanyId$ = this.currentCompanyIdSubject.asObservable();
 
   private companyListSubject = new BehaviorSubject<Company[]>([]);
@@ -95,8 +95,9 @@ export class UserService {
   }
 
 
-  async fetchAllUsers(companyId: number) {
+  async fetchAllUsers() {
     try {
+      const companyId: number = this.getCurrentCompanyId();
       const response = await axios.get(`http://localhost:8080/company/${companyId}/users`)
       console.log("All Users Response Data: ", response.data);
       this.allUsersSubject.next(response.data);
