@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Observable } from 'rxjs';
 import FullUser from 'src/app/interfaces/full-user';
 import { UserService } from 'src/app/services/user.service';
@@ -8,9 +8,12 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
-export class UsersComponent {
+export class UsersComponent implements OnInit {
   allUsers$: Observable<FullUser[]> = this.userService.allUsersObservable();
 
   constructor(private userService: UserService) {}
+  ngOnInit(): void {
+    this.userService.fetchAllUsers();
+  }
 
 }
