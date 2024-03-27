@@ -1,1 +1,19 @@
-<p>overlay-form works!</p>
+<div class="container">
+    <div class="content-body">
+        <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
+            <div *ngFor="let control of formConfig" class="form-group">
+              <input *ngIf="control.type === 'text'" type="text" [formControlName]="control.name" placeholder={{control.name}}>
+              <div class="center-items" *ngIf="control.type === 'dropdown'">
+                  <h3> {{ control.name }}</h3>
+                  <select *ngIf="control.type === 'dropdown'" [formControlName]="control.name">
+                    <!-- <option [defaultSelected]=true [value]="" [selected]>Pick an option</option> -->
+                    <option *ngFor="let option of control.options" [value]="option">{{option}}</option>
+                  </select>
+              </div>
+            </div>
+            <div class="center-items">
+                <button type="submit">Submit</button>
+            </div>
+          </form>
+    </div>
+</div>
