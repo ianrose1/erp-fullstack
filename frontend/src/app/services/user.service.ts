@@ -106,10 +106,10 @@ export class UserService {
     }
   }
 
-  async fetchUserFromDB(username: string, password: string) {
+  async fetchUserFromDB(email: string, password: string) {
     try {
       const response = await axios.post('http://localhost:8080/users/login', {
-        username,
+        email,
         password,
       });
 
