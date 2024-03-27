@@ -20,5 +20,6 @@ public interface UserService {
     FullUserDto createUser(UserRequestDto userRequestDto);
 
 	FullUserDto updateUser(long userId, UserRequestDto userRequestDto);
-	
+
+    FullUserDto resetUser(long userId, CredentialsDto credentialsDto);
 }

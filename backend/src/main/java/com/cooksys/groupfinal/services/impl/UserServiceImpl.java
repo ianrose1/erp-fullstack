@@ -125,5 +125,27 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public FullUserDto resetUser(long userId, CredentialsDto credentialsDto) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if(credentialsDto == null || credentialsDto.getPassword() == null && credentialsDto.getUsername() == null){
+            throw new BadRequestException("No credentials provided");
+        }
+
+        if(optionalUser.isEmpty()){
+            return null;
+        }
+        User userToUpdate = optionalUser.get();
+        if(credentialsDto.getUsername() != null){
+            userToUpdate.getCredentials().setUsername(credentialsDto.getUsername());
+        }
+        if(credentialsDto.getPassword() != null){
+            userToUpdate.getCredentials().setPassword(credentialsDto.getPassword());
+        }
+        userRepository.saveAndFlush(userToUpdate);
+
+        return fullUserMapper.entityToFullUserDto(userToUpdate);
+    }
+
 
 }
