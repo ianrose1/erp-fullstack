@@ -4,6 +4,7 @@ import axios from 'axios';
 import UserFull from 'src/app/interfaces/full-user';
 import FullUser from 'src/app/interfaces/full-user';
 import Company from '../interfaces/company';
+import Profile from '../interfaces/profile';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,7 @@ export class UserService {
   private allUsersSubject = new BehaviorSubject<FullUser[]>([]);
   allUsers$ = this.allUsersSubject.asObservable();
 
-  private currentCompanyIdSubject = new BehaviorSubject<number>(-1);
+  private currentCompanyIdSubject = new BehaviorSubject<number>(6);
   currentCompanyId$ = this.currentCompanyIdSubject.asObservable();
 
   private companyListSubject = new BehaviorSubject<Company[]>([]);
@@ -32,9 +33,17 @@ export class UserService {
 
   constructor() { }
 
+  getCurrentCompanyId() {
+    return this.currentCompanyIdSubject.value;
+  }
+
   getFirstAndLastInitial(firstName: string, lastName: string) {
-    const lastInitial = lastName.charAt(0).toUpperCase() + '.';
-    return `${firstName} ${lastInitial}`;
+    if (!lastName) {
+      return firstName;
+    } else {
+      const lastInitial = lastName.charAt(0).toUpperCase() + '.';
+      return `${firstName} ${lastInitial}`;
+    }
   }
 
   userNameObservable(){
@@ -74,15 +83,22 @@ export class UserService {
   }
 
   updateCurrentUser(newUser: UserFull | undefined) {
+    console.log("newUser: ", newUser)
     this.currentUserSubject.next(newUser);
     if (newUser){
-      this.userNameSubject.next(this.getFirstAndLastInitial(newUser.profile.firstname, newUser.profile.lastname));
+      // this.userNameSubject.next(this.getFirstAndLastInitial(newUser.profile.firstname, newUser.profile.lastname));
+      this.userNameSubject.next(this.getFirstAndLastInitial("Pinky", "Panther"));
+      this.companyListSubject.next(newUser.companies);
+      this.isLoggedInSubject.next(true);
+      this.isAdminSubject.next(newUser.isAdmin);
     }
   }
 
-  async fetchAllUsers(companyId: number) {
+
+  async fetchAllUsers() {
     try {
-      const response = await axios.get(`/company/${companyId}/users`)
+      const companyId: number = this.getCurrentCompanyId();
+      const response = await axios.get(`http://localhost:8080/company/${companyId}/users`)
       console.log("All Users Response Data: ", response.data);
       this.allUsersSubject.next(response.data);
     } catch (error) {
@@ -92,7 +108,7 @@ export class UserService {
 
   async fetchUserFromDB(username: string, password: string) {
     try {
-      const response = await axios.post('/users/login', {
+      const response = await axios.post('http://localhost:8080/users/login', {
         username,
         password,
       });
@@ -100,7 +116,10 @@ export class UserService {
       // TODO: Perform check on response to make sure user logged in
       console.log('User logged in successfully:', response.data);
 
-      this.updateCurrentUser(response.data);
+      const user: FullUser = response.data;
+      console.log("User: ", user);
+
+      this.updateCurrentUser(user);
 
       return {status: 200, ...response.data};
       
@@ -158,4 +177,23 @@ export class UserService {
     this.isLoggedInSubject.next(true);
     this.isAdminSubject.next(true);
   }
+
+  async createNewUser(profile: Profile, password: string, isAdmin: boolean) {
+    try {
+      const response = await axios.post(`http://localhost:8080/users`, {
+        credentials: {username: profile.email, password},
+        profile,
+        isAdmin
+      });
+      console.log("Post New User Response Data: ", response.data);
+    }
+    catch (error) {
+      console.error("Error creating new user:", error);
+    }
+  }
+
+
+
+
+
 }

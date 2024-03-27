@@ -34,8 +34,12 @@ export class LoginComponent {
       console.log("Invalid credentials, login failed");
       this.loginFailed = true;
     } else {
-      console.log("Sucessful login");
-      this.router.navigate(['']);
+      console.log("Successful login");
+      if (this.userService.isAdmin()){
+        this.router.navigate(['company']);
+      } else {
+        this.router.navigate(['']);
+      }
     }
   }
 }

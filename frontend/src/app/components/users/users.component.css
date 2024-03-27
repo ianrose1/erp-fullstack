@@ -7,6 +7,13 @@
     text-align: center;
 }
 
+.add-user-container{
+    width: 70%;
+    display: flex;
+    align-items: left;
+    justify-content: left;;
+}
+
 .add-user-button{
     background-color: #1BA098; /* Example blue color */
     color: #FFFFFF;
@@ -26,16 +33,26 @@
     background-color: #051623;
 }
 
-.mat-cell.active-yes,
-.mat-cell.admin-yes {
-  color: #00B11C; /* Active green color */
-}
 
-.mat-cell.active-no,
-.mat-cell.admin-no {
-  color: #FF0000; /* Inactive red color */
-}
 
 .header {
     color: #FFFFFF;
+    text-align: center;
+    border-bottom: .4px solid #DEB992;
+}
+
+.table-row{
+    color: #DEB992;
+    text-align: center;
+    border-bottom: .4px solid #DEB992;
+}
+
+.active-yes,
+.admin-yes {
+  color: #00B11C; /* Active green color */
+}
+
+.active-no,
+.admin-no {
+  color: #FF0000; /* Inactive red color */
 }
