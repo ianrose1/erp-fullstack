@@ -33,9 +33,17 @@ export class UserService {
 
   constructor() { }
 
+  getCurrentCompanyId() {
+    return this.currentCompanyIdSubject.value;
+  }
+
   getFirstAndLastInitial(firstName: string, lastName: string) {
-    const lastInitial = lastName.charAt(0).toUpperCase() + '.';
-    return `${firstName} ${lastInitial}`;
+    if (!lastName) {
+      return firstName;
+    } else {
+      const lastInitial = lastName.charAt(0).toUpperCase() + '.';
+      return `${firstName} ${lastInitial}`;
+    }
   }
 
   userNameObservable(){
@@ -75,11 +83,17 @@ export class UserService {
   }
 
   updateCurrentUser(newUser: UserFull | undefined) {
+    console.log("newUser: ", newUser)
     this.currentUserSubject.next(newUser);
     if (newUser){
-      this.userNameSubject.next(this.getFirstAndLastInitial(newUser.profile.firstname, newUser.profile.lastname));
+      // this.userNameSubject.next(this.getFirstAndLastInitial(newUser.profile.firstname, newUser.profile.lastname));
+      this.userNameSubject.next(this.getFirstAndLastInitial("Pinky", "Panther"));
+      this.companyListSubject.next(newUser.companies);
+      this.isLoggedInSubject.next(true);
+      this.isAdminSubject.next(newUser.isAdmin);
     }
   }
+
 
   async fetchAllUsers(companyId: number) {
     try {
@@ -101,7 +115,10 @@ export class UserService {
       // TODO: Perform check on response to make sure user logged in
       console.log('User logged in successfully:', response.data);
 
-      this.updateCurrentUser(response.data);
+      const user: FullUser = response.data;
+      console.log("User: ", user);
+
+      this.updateCurrentUser(user);
 
       return {status: 200, ...response.data};
       
