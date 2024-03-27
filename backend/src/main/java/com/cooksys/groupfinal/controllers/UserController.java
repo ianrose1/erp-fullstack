@@ -51,4 +51,9 @@ public class UserController {
         return userService.updateUser(userId, userRequestDto);
     }
 
+    @PatchMapping("{userId}/reset")
+    public FullUserDto resetUser(@PathVariable long userId, @RequestBody CredentialsDto credentialsDto){
+        return userService.resetUser(userId, credentialsDto);
+    }
+
 }
