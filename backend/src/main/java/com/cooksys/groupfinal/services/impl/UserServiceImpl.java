@@ -6,6 +6,8 @@ import java.util.Set;
 import com.cooksys.groupfinal.dtos.LoginDto;
 import com.cooksys.groupfinal.dtos.UserRequestDto;
 import com.cooksys.groupfinal.mappers.ProfileMapper;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.cooksys.groupfinal.dtos.CredentialsDto;
@@ -33,6 +35,7 @@ public class UserServiceImpl implements UserService {
     private final CredentialsMapper credentialsMapper;
     private final ProfileMapper profileMapper;
     private final EncryptionService encryptionService;
+    private final EmailService emailService;
 
     private User findUser(String email) {
         Optional<User> user = userRepository.findByProfileEmailAndActiveTrue(email);
@@ -51,7 +54,7 @@ public class UserServiceImpl implements UserService {
 
         User userToValidate = findUser(loginDto.getEmail());
 
-        if(!encryptionService.verifyPassword(loginDto.getPassword(), userToValidate.getCredentials().getPassword())){
+        if (!encryptionService.verifyPassword(loginDto.getPassword(), userToValidate.getCredentials().getPassword())) {
             throw new NotAuthorizedException("Provided credentials are invalid.");
         }
 //        if (!userToValidate.getCredentials().equals(credentialsToValidate)) {
@@ -107,7 +110,9 @@ public class UserServiceImpl implements UserService {
         userRepository.saveAndFlush(userToCreate);
         userToCreate.setProfile(profileMapper.dtoToEntity(userRequestDto.getProfile()));
 
-
+        emailService.sendEmail(userToCreate.getProfile().getEmail(), "Account Creation",
+                String.format("Hello %s %s, \n Your account has been created", userToCreate.getProfile().getFirstname(),
+                        userToCreate.getProfile().getLastname()));
         return fullUserMapper.entityToFullUserDto(userToCreate);
     }
 
@@ -140,18 +145,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public FullUserDto resetUser(long userId, CredentialsDto credentialsDto) {
         Optional<User> optionalUser = userRepository.findById(userId);
-        if(credentialsDto == null || credentialsDto.getPassword() == null && credentialsDto.getUsername() == null){
+        if (credentialsDto == null || credentialsDto.getPassword() == null && credentialsDto.getUsername() == null) {
             throw new BadRequestException("No credentials provided");
         }
 
-        if(optionalUser.isEmpty()){
+        if (optionalUser.isEmpty()) {
             return null;
         }
         User userToUpdate = optionalUser.get();
-        if(credentialsDto.getUsername() != null){
+        if (credentialsDto.getUsername() != null) {
             userToUpdate.getCredentials().setUsername(credentialsDto.getUsername());
         }
-        if(credentialsDto.getPassword() != null){
+        if (credentialsDto.getPassword() != null) {
             userToUpdate.getCredentials().setPassword(encryptionService.encryptPassword(credentialsDto.getPassword()));
         }
         userRepository.saveAndFlush(userToUpdate);
