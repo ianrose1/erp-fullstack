@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 public class ProfileDto {
 
-    private String firstName;
+    private String firstname;
 
-    private String lastName;
+    private String lastname;
 
     private String email;
 

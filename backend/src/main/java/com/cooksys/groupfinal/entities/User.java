@@ -33,7 +33,7 @@ public class User {
 	
 	private boolean active;
 	
-	private boolean admin;
+	private boolean isAdmin;
 	
 	private String status = "PENDING";
 	
