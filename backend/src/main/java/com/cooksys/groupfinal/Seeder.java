@@ -3,6 +3,7 @@ package com.cooksys.groupfinal;
 import java.util.Arrays;
 import java.util.HashSet;
 
+import com.cooksys.groupfinal.services.impl.EncryptionService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -30,6 +31,7 @@ public class Seeder implements CommandLineRunner {
   private final ProjectRepository projectRepository;
   private final TeamRepository teamRepository;
   private final UserRepository userRepository;
+  private final EncryptionService encryptionService;
   
   @Override
   public void run(String... args) throws Exception {
@@ -58,7 +60,7 @@ public class Seeder implements CommandLineRunner {
 	  User user1 = new User();
 	  Credentials creds1 = new Credentials();
 	  creds1.setUsername("cousingreg");
-	  creds1.setPassword("mosteligiblebachelor");
+	  creds1.setPassword(encryptionService.encryptPassword("mosteligiblebachelor"));
 	  user1.setCredentials(creds1);
 	  Profile profile1 = new Profile();
 	  profile1.setFirstname("Greg");
@@ -247,13 +249,13 @@ public class Seeder implements CommandLineRunner {
 	  company1.setName("waystar|ROYCO");
 	  company1.setDescription("waystar|ROYCO, the future of media, entertainment, and theme parks.");
 	  company1.setAnnouncements(new HashSet<Announcement>(Arrays.asList(announcement1, announcement2)));
-	  company1.setEmployees(new HashSet<User>(Arrays.asList(user1, user2, user3, user4, user5, user6, user7, user8, user9)));
+	  company1.setUsers(new HashSet<User>(Arrays.asList(user1, user2, user3, user4, user5, user6, user7, user8, user9)));
 	  company1.setTeams(new HashSet<Team>(Arrays.asList(team1, team2, team3, team4, team5, team6)));
 	  
 	  company2.setName("Cook Systems");
 	  company2.setDescription("We are Cook Systems.");
 	  company2.setAnnouncements(new HashSet<Announcement>(Arrays.asList(announcement3)));
-	  company2.setEmployees(new HashSet<User>(Arrays.asList(user10, user11, user12)));
+	  company2.setUsers(new HashSet<User>(Arrays.asList(user10, user11, user12)));
 	  company2.setTeams(new HashSet<Team>(Arrays.asList(team7)));
 	  
 	  project1.setName("Brightstar Theme Park Expansion");
@@ -274,39 +276,39 @@ public class Seeder implements CommandLineRunner {
 	  team1.setName("Team 1");
 	  team1.setDescription("Greg & Tom");
 	  team1.setCompany(company1);
-	  team1.setTeammates(new HashSet<User>(Arrays.asList(user1, user2)));
+	  team1.setUsers(new HashSet<User>(Arrays.asList(user1, user2)));
 	  team1.setProjects(new HashSet<Project>(Arrays.asList(project1)));
 	  
 	  team2.setName("Team 2");
 	  team2.setDescription("Tom & Shiv");
 	  team2.setCompany(company1);
-	  team2.setTeammates(new HashSet<User>(Arrays.asList(user2, user5)));
+	  team2.setUsers(new HashSet<User>(Arrays.asList(user2, user5)));
 	  
 	  team3.setName("Team 3");
 	  team3.setDescription("Roman & Gerri");
 	  team3.setCompany(company1);
-	  team3.setTeammates(new HashSet<User>(Arrays.asList(user4, user9)));
+	  team3.setUsers(new HashSet<User>(Arrays.asList(user4, user9)));
 	  team3.setProjects(new HashSet<Project>(Arrays.asList(project3)));
 	  
 	  team4.setName("Team 4");
 	  team4.setDescription("Greg & Kendall");
 	  team4.setCompany(company1);
-	  team4.setTeammates(new HashSet<User>(Arrays.asList(user1, user3)));
+	  team4.setUsers(new HashSet<User>(Arrays.asList(user1, user3)));
 	  
 	  team5.setName("Team 5");
 	  team5.setDescription("Logan & Marcia");
 	  team5.setCompany(company1);
-	  team5.setTeammates(new HashSet<User>(Arrays.asList(user6, user8)));
+	  team5.setUsers(new HashSet<User>(Arrays.asList(user6, user8)));
 	  
 	  team6.setName("Team 6");
 	  team6.setDescription("Kendall, Roman, Shiv, & Connor");
 	  team6.setCompany(company1);
-	  team6.setTeammates(new HashSet<User>(Arrays.asList(user3, user4, user5, user7)));
+	  team6.setUsers(new HashSet<User>(Arrays.asList(user3, user4, user5, user7)));
 	  
 	  team7.setName("Team 7");
 	  team7.setDescription("Helena, Kenny, & Will");
 	  team7.setCompany(company2);
-	  team7.setTeammates(new HashSet<User>(Arrays.asList(user10, user11, user12)));
+	  team7.setUsers(new HashSet<User>(Arrays.asList(user10, user11, user12)));
 	  team7.setProjects(new HashSet<Project>(Arrays.asList(project2)));
 	  
 	  user1.setCompanies(new HashSet<Company>(Arrays.asList(company1)));
