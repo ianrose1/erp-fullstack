@@ -32,7 +32,7 @@ public class Team {
 	
 	@ManyToMany
 	@EqualsAndHashCode.Exclude
-	private Set<User> teammates = new HashSet<>();
+	private Set<User> users = new HashSet<>();
 	
 	@OneToMany(mappedBy = "team")
 	@EqualsAndHashCode.Exclude

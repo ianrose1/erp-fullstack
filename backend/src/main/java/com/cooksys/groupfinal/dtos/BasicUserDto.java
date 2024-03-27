@@ -11,7 +11,7 @@ public class BasicUserDto {
 
     private ProfileDto profile;
     
-    private boolean admin;
+    private boolean isAdmin;
     
     private boolean active;
     

@@ -13,6 +13,7 @@ import java.util.Set;
 @RestController
 @RequestMapping("/projects")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class ProjectController {
 	
 	private final ProjectService projectService;

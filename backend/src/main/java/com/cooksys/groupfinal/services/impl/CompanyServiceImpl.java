@@ -61,7 +61,7 @@ public class CompanyServiceImpl implements CompanyService {
 	public Set<FullUserDto> getAllUsers(Long id) {
 		Company company = findCompany(id);
 		Set<User> filteredUsers = new HashSet<>();
-		company.getEmployees().forEach(filteredUsers::add);
+		company.getUsers().forEach(filteredUsers::add);
 		filteredUsers.removeIf(user -> !user.isActive());
 		return fullUserMapper.entitiesToFullUserDtos(filteredUsers);
 	}

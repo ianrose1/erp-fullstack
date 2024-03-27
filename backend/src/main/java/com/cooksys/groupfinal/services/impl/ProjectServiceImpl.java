@@ -31,12 +31,12 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Set<ProjectDto> getAllProjects() {
-        return projectMapper.entitiesToDtos(projectRepository.findByActiveFalse());
+        return projectMapper.entitiesToDtos(new HashSet<>(projectRepository.findAll()));
     }
 
     @Override
     public Set<ProjectDto> getProjectsByTeamId(long teamId) {
-        return projectMapper.entitiesToDtos(projectRepository.findByTeam_IdAndActiveFalse(teamId));
+        return projectMapper.entitiesToDtos(projectRepository.findByTeam_Id(teamId));
     }
 
     @Override
