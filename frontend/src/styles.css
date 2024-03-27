@@ -4,12 +4,16 @@ html {
     background-color: #051622;
 }
 
+body {
+    font-family: 'Mulish', sans-serif;
+}
+
 .white {
     color: #ffffff;
 }
 
 .main-font {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Mulish', sans-serif;
 }
 
 .main-green {
