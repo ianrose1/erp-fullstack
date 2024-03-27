@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class SelectCompanyComponent {
   @Output() formValueEmitter: EventEmitter<string> = new EventEmitter<string>();
   companies: string[] = ['FedEx', 'CookSystems', 'Google'];
-  defaultCompany: string = 'Pick an option';
+  defaultCompany = 'Pick an option';
   configForm!: FormGroup;
 
   constructor(private fb: FormBuilder, private router: Router) {

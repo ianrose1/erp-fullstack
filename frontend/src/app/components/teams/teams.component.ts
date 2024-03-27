@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Team } from '../../interfaces/team';
 import { TeamsService } from 'src/app/services/teams.service';
-import { Observable, Subscription, from, map } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -10,24 +10,29 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./teams.component.css']
 })
 export class TeamsComponent implements OnInit, OnDestroy {
-  private userCompanyId: number = 0;
-  teams: Team[] = [];
-
-  private subscriptions = new Subscription();
+  companyId = 0;
+  allTeams: Team[] = [];
 
   constructor(private teamsService: TeamsService, private userService: UserService) { }
 
+  // subscriptions
+  private subscriptions = new Subscription();
+
   ngOnInit(): void {
-    // gets the user's current company id
+    // Subscribe to current company id
     this.subscriptions.add(
-      this.userService.currentCompanyId$.subscribe((id) => {
-        this.userCompanyId = id;
+      this.userService.currentCompanyIdObservable().subscribe((id) => {
+        this.companyId = id;
       })
     );
-    // gets teams observable from database based on company user selected
+
+    // fetch all teams by company
+    this.teamsService.fetchAllTeamsByCompany(this.companyId)
+
+    // initialize teams
     this.subscriptions.add(
-      this.teamsService.fetchTeamsFromDB(this.userCompanyId).subscribe(data => {
-        this.teams = data;
+      this.teamsService.allTeamsObservable().subscribe((teams) => {
+        this.allTeams = teams;
       })
     );
   }
@@ -35,9 +40,4 @@ export class TeamsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
-
-  onClickNewTeam() {
-    // Display overlay form to make new team
-  }
-
 }
