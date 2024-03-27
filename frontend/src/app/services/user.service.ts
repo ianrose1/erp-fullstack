@@ -86,11 +86,15 @@ export class UserService {
     console.log("newUser: ", newUser)
     this.currentUserSubject.next(newUser);
     if (newUser){
-      // this.userNameSubject.next(this.getFirstAndLastInitial(newUser.profile.firstname, newUser.profile.lastname));
-      this.userNameSubject.next(this.getFirstAndLastInitial("Pinky", "Panther"));
+      let name: string = this.getFirstAndLastInitial(newUser.profile.firstname, newUser.profile.lastname)
+      if (newUser.admin) {
+        name = name + " (Admin)";
+      } 
+      this.userNameSubject.next(name);
+      // this.userNameSubject.next(this.getFirstAndLastInitial("Pinky", "Panther"));
       this.companyListSubject.next(newUser.companies);
       this.isLoggedInSubject.next(true);
-      this.isAdminSubject.next(newUser.isAdmin);
+      this.isAdminSubject.next(newUser.admin);
     }
   }
 
@@ -106,10 +110,10 @@ export class UserService {
     }
   }
 
-  async fetchUserFromDB(username: string, password: string) {
+  async fetchUserFromDB(email: string, password: string) {
     try {
       const response = await axios.post('http://localhost:8080/users/login', {
-        username,
+        email,
         password,
       });
 

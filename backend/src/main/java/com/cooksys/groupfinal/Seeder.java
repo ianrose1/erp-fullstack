@@ -124,7 +124,7 @@ public class Seeder implements CommandLineRunner {
 	  User user6 = new User();
 	  Credentials creds6 = new Credentials();
 	  creds6.setUsername("thisismycompany");
-	  creds6.setPassword("getyourowncompany");
+	  creds6.setPassword(encryptionService.encryptPassword("getyourowncompany"));
 	  user6.setCredentials(creds6);
 	  Profile profile6 = new Profile();
 	  profile6.setFirstname("Logan");

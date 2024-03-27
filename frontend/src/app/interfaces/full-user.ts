@@ -5,7 +5,7 @@ import { Team } from "./team";
 export default interface FullUser {
   id: number,
   profile: Profile,
-  isAdmin: boolean,
+  admin: boolean,
   active: boolean,
   status: string,
   companies: [Company],
