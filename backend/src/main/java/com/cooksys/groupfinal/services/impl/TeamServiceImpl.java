@@ -53,7 +53,7 @@ public class TeamServiceImpl implements TeamService {
         }
         Team teamToCreate = teamMapper.dtoToEntity(teamDto);
         teamRepository.saveAndFlush(teamToCreate);
-        teamToCreate.setTeammates(basicUserMapper.basicUserDtosToEntities(teamDto.getTeammates()));
+        teamToCreate.setUsers(basicUserMapper.basicUserDtosToEntities(teamDto.getUsers()));
         return teamMapper.entityToDto(teamToCreate);
     }
 
@@ -70,8 +70,8 @@ public class TeamServiceImpl implements TeamService {
         if (teamDto.getDescription() != null) {
         	teamToUpdate.setDescription(teamDto.getDescription());
         } 
-        if (teamDto.getTeammates() != null) {
-        	teamToUpdate.setTeammates(basicUserMapper.basicUserDtosToEntities(teamDto.getTeammates()));
+        if (teamDto.getUsers() != null) {
+        	teamToUpdate.setUsers(basicUserMapper.basicUserDtosToEntities(teamDto.getUsers()));
         }
         
         teamRepository.saveAndFlush(teamToUpdate);

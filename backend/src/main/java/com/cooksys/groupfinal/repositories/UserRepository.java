@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import com.cooksys.groupfinal.entities.Credentials;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,8 +15,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	
 	Optional<User> findByCredentialsUsernameAndActiveTrue(String username);
 
+
 	Set<User> findByActiveTrue();
 
 	User findByIdAndActiveTrue(Long id);
+
+	Optional<User> findByProfileEmailAndActiveTrue(String email);
+
 
 }

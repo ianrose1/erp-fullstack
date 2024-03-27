@@ -3,6 +3,7 @@ package com.cooksys.groupfinal;
 import java.util.Arrays;
 import java.util.HashSet;
 
+import com.cooksys.groupfinal.services.impl.EncryptionService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -30,6 +31,7 @@ public class Seeder implements CommandLineRunner {
   private final ProjectRepository projectRepository;
   private final TeamRepository teamRepository;
   private final UserRepository userRepository;
+  private final EncryptionService encryptionService;
   
   @Override
   public void run(String... args) throws Exception {
@@ -58,11 +60,11 @@ public class Seeder implements CommandLineRunner {
 	  User user1 = new User();
 	  Credentials creds1 = new Credentials();
 	  creds1.setUsername("cousingreg");
-	  creds1.setPassword("mosteligiblebachelor");
+	  creds1.setPassword(encryptionService.encryptPassword("mosteligiblebachelor"));
 	  user1.setCredentials(creds1);
 	  Profile profile1 = new Profile();
-	  profile1.setFirstName("Greg");
-	  profile1.setLastName("Hirsch");
+	  profile1.setFirstname("Greg");
+	  profile1.setLastname("Hirsch");
 	  profile1.setEmail("ghirsch@email.com");
 	  profile1.setPhone("(000) 000-0000");
 	  user1.setProfile(profile1);
@@ -74,8 +76,8 @@ public class Seeder implements CommandLineRunner {
 	  creds2.setPassword("idontwanttogotojail");
 	  user2.setCredentials(creds2);
 	  Profile profile2 = new Profile();
-	  profile2.setFirstName("Tom");
-	  profile2.setLastName("Wambsgans");
+	  profile2.setFirstname("Tom");
+	  profile2.setLastname("Wambsgans");
 	  profile2.setEmail("twambsgans@email.com");
 	  profile2.setPhone("(111) 111-1111");
 	  user2.setProfile(profile2);
@@ -87,8 +89,8 @@ public class Seeder implements CommandLineRunner {
 	  creds3.setPassword("ltotheog");
 	  user3.setCredentials(creds3);
 	  Profile profile3 = new Profile();
-	  profile3.setFirstName("Kendall");
-	  profile3.setLastName("Roy");
+	  profile3.setFirstname("Kendall");
+	  profile3.setLastname("Roy");
 	  profile3.setEmail("kroy@email.com");
 	  profile3.setPhone("(222) 222-2222");
 	  user3.setProfile(profile3);
@@ -99,8 +101,8 @@ public class Seeder implements CommandLineRunner {
 	  creds4.setPassword("iknownothingaboutsoccer");
 	  user4.setCredentials(creds4);
 	  Profile profile4 = new Profile();
-	  profile4.setFirstName("Roman");
-	  profile4.setLastName("Roy");
+	  profile4.setFirstname("Roman");
+	  profile4.setLastname("Roy");
 	  profile4.setEmail("rroy@email.com");
 	  profile4.setPhone("(333) 333-3333");
 	  user4.setProfile(profile4);
@@ -112,8 +114,8 @@ public class Seeder implements CommandLineRunner {
 	  creds5.setPassword("futureceoofwaystar");
 	  user5.setCredentials(creds5);
 	  Profile profile5 = new Profile();
-	  profile5.setFirstName("Siobhan");
-	  profile5.setLastName("Roy");
+	  profile5.setFirstname("Siobhan");
+	  profile5.setLastname("Roy");
 	  profile5.setEmail("sroy@email.com");
 	  profile5.setPhone("(444) 444-4444");
 	  user5.setProfile(profile5);
@@ -125,8 +127,8 @@ public class Seeder implements CommandLineRunner {
 	  creds6.setPassword("getyourowncompany");
 	  user6.setCredentials(creds6);
 	  Profile profile6 = new Profile();
-	  profile6.setFirstName("Logan");
-	  profile6.setLastName("Roy");
+	  profile6.setFirstname("Logan");
+	  profile6.setLastname("Roy");
 	  profile6.setEmail("lroy@email.com");
 	  profile6.setPhone("(555) 555-5555");
 	  user6.setProfile(profile6);
@@ -139,8 +141,8 @@ public class Seeder implements CommandLineRunner {
 	  creds7.setPassword("interestedinpoliticsataveryyoungage");
 	  user7.setCredentials(creds7);
 	  Profile profile7 = new Profile();
-	  profile7.setFirstName("Connor");
-	  profile7.setLastName("Roy");
+	  profile7.setFirstname("Connor");
+	  profile7.setLastname("Roy");
 	  profile7.setEmail("croy@email.com");
 	  profile7.setPhone("(666) 666-6666");
 	  user7.setProfile(profile7);
@@ -151,8 +153,8 @@ public class Seeder implements CommandLineRunner {
 	  creds8.setPassword("amir");
 	  user8.setCredentials(creds8);
 	  Profile profile8 = new Profile();
-	  profile8.setFirstName("Marcia");
-	  profile8.setLastName("Roy");
+	  profile8.setFirstname("Marcia");
+	  profile8.setLastname("Roy");
 	  profile8.setEmail("mroy@email.com");
 	  profile8.setPhone("(777) 777-7777");
 	  user8.setProfile(profile8);
@@ -163,8 +165,8 @@ public class Seeder implements CommandLineRunner {
 	  creds9.setPassword("idontgetpaidenoughforthis");
 	  user9.setCredentials(creds9);
 	  Profile profile9 = new Profile();
-	  profile9.setFirstName("Gerri");
-	  profile9.setLastName("Kellman");
+	  profile9.setFirstname("Gerri");
+	  profile9.setLastname("Kellman");
 	  profile9.setEmail("gkellman@email.com");
 	  profile9.setPhone("(888) 888-8888");
 	  user9.setProfile(profile9);
@@ -177,8 +179,8 @@ public class Seeder implements CommandLineRunner {
 	  creds10.setPassword("helenasusername");
 	  user10.setCredentials(creds10);
 	  Profile profile10 = new Profile();
-	  profile10.setFirstName("Helena");
-	  profile10.setLastName("Makendengue");
+	  profile10.setFirstname("Helena");
+	  profile10.setLastname("Makendengue");
 	  profile10.setEmail("helena@email.com");
 	  profile10.setPhone("(000) 000-0000");
 	  user10.setProfile(profile10);
@@ -190,8 +192,8 @@ public class Seeder implements CommandLineRunner {
 	  creds11.setPassword("kennyspassword");
 	  user11.setCredentials(creds11);
 	  Profile profile11 = new Profile();
-	  profile11.setFirstName("Kenny");
-	  profile11.setLastName("Worth");
+	  profile11.setFirstname("Kenny");
+	  profile11.setLastname("Worth");
 	  profile11.setEmail("kenny@email.com");
 	  profile11.setPhone("(111) 111-1111");
 	  user11.setProfile(profile11);
@@ -203,8 +205,8 @@ public class Seeder implements CommandLineRunner {
 	  creds12.setPassword("willspassword");
 	  user12.setCredentials(creds12);
 	  Profile profile12 = new Profile();
-	  profile12.setFirstName("Will");
-	  profile12.setLastName("Marttala");
+	  profile12.setFirstname("Will");
+	  profile12.setLastname("Marttala");
 	  profile12.setEmail("will@email.com");
 	  profile12.setPhone("(222) 222-2222");
 	  user12.setProfile(profile12);
@@ -247,13 +249,13 @@ public class Seeder implements CommandLineRunner {
 	  company1.setName("waystar|ROYCO");
 	  company1.setDescription("waystar|ROYCO, the future of media, entertainment, and theme parks.");
 	  company1.setAnnouncements(new HashSet<Announcement>(Arrays.asList(announcement1, announcement2)));
-	  company1.setEmployees(new HashSet<User>(Arrays.asList(user1, user2, user3, user4, user5, user6, user7, user8, user9)));
+	  company1.setUsers(new HashSet<User>(Arrays.asList(user1, user2, user3, user4, user5, user6, user7, user8, user9)));
 	  company1.setTeams(new HashSet<Team>(Arrays.asList(team1, team2, team3, team4, team5, team6)));
 	  
 	  company2.setName("Cook Systems");
 	  company2.setDescription("We are Cook Systems.");
 	  company2.setAnnouncements(new HashSet<Announcement>(Arrays.asList(announcement3)));
-	  company2.setEmployees(new HashSet<User>(Arrays.asList(user10, user11, user12)));
+	  company2.setUsers(new HashSet<User>(Arrays.asList(user10, user11, user12)));
 	  company2.setTeams(new HashSet<Team>(Arrays.asList(team7)));
 	  
 	  project1.setName("Brightstar Theme Park Expansion");
@@ -274,39 +276,39 @@ public class Seeder implements CommandLineRunner {
 	  team1.setName("Team 1");
 	  team1.setDescription("Greg & Tom");
 	  team1.setCompany(company1);
-	  team1.setTeammates(new HashSet<User>(Arrays.asList(user1, user2)));
+	  team1.setUsers(new HashSet<User>(Arrays.asList(user1, user2)));
 	  team1.setProjects(new HashSet<Project>(Arrays.asList(project1)));
 	  
 	  team2.setName("Team 2");
 	  team2.setDescription("Tom & Shiv");
 	  team2.setCompany(company1);
-	  team2.setTeammates(new HashSet<User>(Arrays.asList(user2, user5)));
+	  team2.setUsers(new HashSet<User>(Arrays.asList(user2, user5)));
 	  
 	  team3.setName("Team 3");
 	  team3.setDescription("Roman & Gerri");
 	  team3.setCompany(company1);
-	  team3.setTeammates(new HashSet<User>(Arrays.asList(user4, user9)));
+	  team3.setUsers(new HashSet<User>(Arrays.asList(user4, user9)));
 	  team3.setProjects(new HashSet<Project>(Arrays.asList(project3)));
 	  
 	  team4.setName("Team 4");
 	  team4.setDescription("Greg & Kendall");
 	  team4.setCompany(company1);
-	  team4.setTeammates(new HashSet<User>(Arrays.asList(user1, user3)));
+	  team4.setUsers(new HashSet<User>(Arrays.asList(user1, user3)));
 	  
 	  team5.setName("Team 5");
 	  team5.setDescription("Logan & Marcia");
 	  team5.setCompany(company1);
-	  team5.setTeammates(new HashSet<User>(Arrays.asList(user6, user8)));
+	  team5.setUsers(new HashSet<User>(Arrays.asList(user6, user8)));
 	  
 	  team6.setName("Team 6");
 	  team6.setDescription("Kendall, Roman, Shiv, & Connor");
 	  team6.setCompany(company1);
-	  team6.setTeammates(new HashSet<User>(Arrays.asList(user3, user4, user5, user7)));
+	  team6.setUsers(new HashSet<User>(Arrays.asList(user3, user4, user5, user7)));
 	  
 	  team7.setName("Team 7");
 	  team7.setDescription("Helena, Kenny, & Will");
 	  team7.setCompany(company2);
-	  team7.setTeammates(new HashSet<User>(Arrays.asList(user10, user11, user12)));
+	  team7.setUsers(new HashSet<User>(Arrays.asList(user10, user11, user12)));
 	  team7.setProjects(new HashSet<Project>(Arrays.asList(project2)));
 	  
 	  user1.setCompanies(new HashSet<Company>(Arrays.asList(company1)));

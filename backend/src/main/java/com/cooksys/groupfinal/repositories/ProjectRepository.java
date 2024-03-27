@@ -13,6 +13,7 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 
     Set<Project> findByTeam_Id(Long id);
 
+
     Set<Project> findByActiveFalse();
 
     Set<Project> findByTeam_IdAndActiveFalse(Long id);

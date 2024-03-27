@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @Data
 public class Profile {
 
-    private String firstName;
+    private String firstname;
 
-    private String lastName;
+    private String lastname;
 
     @Column(nullable = false)
     private String email;
