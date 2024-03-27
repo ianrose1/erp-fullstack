@@ -4,6 +4,7 @@ import axios from 'axios';
 import UserFull from 'src/app/interfaces/full-user';
 import FullUser from 'src/app/interfaces/full-user';
 import Company from '../interfaces/company';
+import Profile from '../interfaces/profile';
 
 @Injectable({
   providedIn: 'root'
@@ -82,7 +83,7 @@ export class UserService {
 
   async fetchAllUsers(companyId: number) {
     try {
-      const response = await axios.get(`/company/${companyId}/users`)
+      const response = await axios.get(`http://localhost:8080/company/${companyId}/users`)
       console.log("All Users Response Data: ", response.data);
       this.allUsersSubject.next(response.data);
     } catch (error) {
@@ -92,7 +93,7 @@ export class UserService {
 
   async fetchUserFromDB(username: string, password: string) {
     try {
-      const response = await axios.post('/users/login', {
+      const response = await axios.post('http://localhost:8080/users/login', {
         username,
         password,
       });
@@ -158,4 +159,23 @@ export class UserService {
     this.isLoggedInSubject.next(true);
     this.isAdminSubject.next(true);
   }
+
+  async createNewUser(profile: Profile, password: string, isAdmin: boolean) {
+    try {
+      const response = await axios.post(`http://localhost:8080/users`, {
+        credentials: {username: profile.email, password},
+        profile,
+        isAdmin
+      });
+      console.log("Post New User Response Data: ", response.data);
+    }
+    catch (error) {
+      console.error("Error creating new user:", error);
+    }
+  }
+
+
+
+
+
 }
