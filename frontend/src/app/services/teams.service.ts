@@ -1,38 +1,74 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import BasicUser from '../interfaces/basic-user';
 import { Team } from '../interfaces/team';
+import axios from 'axios';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TeamsService {
-  private databaseUrl: string;
   // Observables
-  private teamIdSubject = new BehaviorSubject<number>(0);
-  teamId$ = this.teamIdSubject.asObservable();
+  private teamSubject = new BehaviorSubject<Team | undefined>(undefined);
+  team$ = this.teamSubject.asObservable();
 
-  private teamNameSubject = new BehaviorSubject<string>("");
-  teamName$ = this.teamNameSubject.asObservable();
+  private allTeamsSubject = new BehaviorSubject<Team[]>([]);
+  allTeams$ = this.allTeamsSubject.asObservable();
 
-  private teamDescriptionSubject = new BehaviorSubject<string>("");
-  teamDescription$ = this.teamDescriptionSubject.asObservable();
+  constructor() { }
 
-  private teamUsersSubject = new BehaviorSubject<BasicUser[]>([]);
-  teamUsers$ = this.teamUsersSubject.asObservable();
-
-  constructor(private http: HttpClient) {
-    this.databaseUrl = "http://localhost:8080/"
+  // getters
+  allTeamsObservable(): Observable<Team[]> {
+    return this.allTeamsSubject.asObservable();
   }
 
-  // gets list of non-deleted teams for the company
-  fetchTeamsFromDB(companyId: number): Observable<Team[]> {
-    return this.http.get<Team[]>(this.databaseUrl + `company/${companyId}/teams`);
+  teamObservable(): Observable<Team | undefined> {
+    return this.teamSubject.asObservable();
   }
 
-  // Adds a new team
-  addNewTeam(team: Team) {
-    return this.http.post<Team>(this.databaseUrl + `teams`, team);
+  // gets all teams from provided company
+  async fetchAllTeamsByCompany(companyId: number) {
+    try {
+      const response = await axios.get(`/company/${companyId}/teams`);
+      console.log("All Teams By Company Response Data: ", response.data);
+      this.allTeamsSubject.next(response.data);
+    } catch (error) {
+      console.error("Error fetching teams:", error);
+    }
+  }
+
+  // gets all teams
+  async fetchAllTeams() {
+    try {
+      const response = await axios.get('/team');
+      console.log("All Teams Response Data: ", response.data);
+      // TODO: Set up behavior subject for all teams
+    }
+    catch (error) {
+      console.error("Error fetching teams:", error);
+    }
+  }
+
+  // gets team by id
+  async fetchTeamById(teamId: number) {
+    try {
+      const response = await axios.get(`/team/${teamId}`);
+      console.log("Team Response Data: ", response.data);
+      this.teamSubject.next(response.data);
+    }
+    catch (error) {
+      console.error("Error fetching team:", error);
+    }
+  }
+
+  // creates a new team
+  async postNewTeam() {
+    try {
+      const response = await axios.post(`/team`);
+      console.log("Team Response Data: ", response.data);
+      this.teamSubject.next(response.data);
+    }
+    catch (error) {
+      console.error("Error fetching team:", error);
+    }
   }
 }
