@@ -27,6 +27,7 @@
     border: 3px solid #DEB992;
     border-radius: 10px;
     width: 70%;
+    font-family: 'Roboto', sans-serif;
 }
 
 .mat-table {
