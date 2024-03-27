@@ -32,7 +32,7 @@ public class Company {
 	
 	@ManyToMany
 	@EqualsAndHashCode.Exclude
-	private Set<User> employees = new HashSet<>();
+	private Set<User> users = new HashSet<>();
 	
 	@OneToMany(mappedBy = "company")
 	@EqualsAndHashCode.Exclude

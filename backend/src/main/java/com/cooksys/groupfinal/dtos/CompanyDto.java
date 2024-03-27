@@ -17,6 +17,6 @@ public class CompanyDto {
     
     private Set<TeamDto> teams;
     
-    private Set<BasicUserDto> employees;
+    private Set<BasicUserDto> users;
 
 }
