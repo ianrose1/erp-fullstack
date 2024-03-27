@@ -3,8 +3,22 @@
 .select {
     background-color: white;
     text-align: center;
-    color: rgb(184, 101, 217);
+    color: #005594;
+    font-weight: bold;
     border: 1px solid lavender;
-    padding: 10px;
+    padding: 4px 15px;
     border-radius: 5px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+}
+
+.header {
+    color: #1BA098;
+    margin-bottom: 2%;
 }

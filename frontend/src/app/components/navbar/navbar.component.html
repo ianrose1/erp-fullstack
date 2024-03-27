@@ -1,4 +1,4 @@
-<nav class="nav-bar">
+<nav *ngIf="isVisible$ | async" class="nav-bar">
     <div class="nav-left">
         <img src="assets/images/app-icon.png" alt="app-icon-alt"class="navbar-icon">
         <span class="navbar-text">{{ userName$ | async }}</span>
