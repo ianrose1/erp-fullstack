@@ -51,9 +51,9 @@
 
 .announcement-container{
     background-color: #0B2D45;
-    margin: 2% 4%; 
+    margin: 5% 4%; 
     border-radius: 15px;
-    width: 50%;
+    width: 75vh;
 }
 .announcement-content{
     display: flex;
@@ -84,4 +84,5 @@
     justify-content: center;
     text-align: left;
     line-height: 1.5;
+    width:100%;
 }

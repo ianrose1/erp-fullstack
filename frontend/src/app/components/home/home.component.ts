@@ -11,6 +11,12 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class HomeComponent implements OnInit {
 
+  formatter = new Intl.DateTimeFormat('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric'
+  });
+
   announcements$: Observable<Announcement[]> = this.announcementService.announcementObservable();
 
   constructor(private announcementService: AnnouncementsService, private userService: UserService) {}
@@ -18,5 +24,11 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.announcementService.fetchAnnouncements();
   }
+
+  formatDate(timestamp: string) {
+    const date = new Date(timestamp);
+    return this.formatter.format(date);
+  }
+
 
 }
