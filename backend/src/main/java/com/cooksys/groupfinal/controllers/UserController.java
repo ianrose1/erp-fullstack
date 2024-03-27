@@ -14,29 +14,30 @@ import java.util.Set;
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
-	
-	private final UserService userService;
-	
-	@PostMapping("/login")
-	@CrossOrigin(origins="*")
+
+    private final UserService userService;
+
+    @PostMapping("/login")
+    @CrossOrigin(origins = "*")
     public FullUserDto login(@RequestBody CredentialsDto credentialsDto) {
         return userService.login(credentialsDto);
     }
 
 
     @GetMapping()
-    public Set<FullUserDto> getUsers(){
+    public Set<FullUserDto> getUsers() {
         return userService.getUsers();
     }
 
     @GetMapping("{userId}")
-    public FullUserDto getUser(@PathVariable long userId){
+    public FullUserDto getUser(@PathVariable long userId) {
         return userService.getUser(userId);
     }
 
     @DeleteMapping("{userId}")
-    public FullUserDto deleteUser(@PathVariable long userId){
+    public FullUserDto deleteUser(@PathVariable long userId) {
         return userService.deleteUser(userId);
     }
 
@@ -44,10 +45,10 @@ public class UserController {
     public FullUserDto createUser(@RequestBody UserRequestDto userRequestDto) {
         return userService.createUser(userRequestDto);
     }
-    
+
     @PatchMapping("{userId}")
     public FullUserDto updateUser(@PathVariable long userId, @RequestBody UserRequestDto userRequestDto) {
-    	return userService.updateUser(userId, userRequestDto); 
+        return userService.updateUser(userId, userRequestDto);
     }
 
 }
