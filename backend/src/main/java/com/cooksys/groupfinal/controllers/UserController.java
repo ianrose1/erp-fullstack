@@ -1,5 +1,6 @@
 package com.cooksys.groupfinal.controllers;
 
+import com.cooksys.groupfinal.dtos.LoginDto;
 import com.cooksys.groupfinal.dtos.UserRequestDto;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,8 +22,8 @@ public class UserController {
 
     @PostMapping("/login")
     @CrossOrigin(origins = "*")
-    public FullUserDto login(@RequestBody CredentialsDto credentialsDto) {
-        return userService.login(credentialsDto);
+    public FullUserDto login(@RequestBody LoginDto loginDto) {
+        return userService.login(loginDto);
     }
 
 
