@@ -16,6 +16,9 @@ export class HomeComponent implements OnInit {
     day: 'numeric',
     year: 'numeric'
   });
+  formConfig = [
+    { name: 'announcement', type: 'text' }
+  ];
 
   announcements$: Observable<Announcement[]> = this.announcementService.announcementObservable();
 
