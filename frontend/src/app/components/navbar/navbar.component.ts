@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, filter } from 'rxjs';
+import { NavbarService } from 'src/app/services/navbar.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -9,13 +10,13 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./navbar.component.css']
 })
 
-export class NavbarComponent {
+export class NavbarComponent{
   userName$: Observable<string> = this.userService.userNameObservable();
   isAdmin$: Observable<boolean> = this.userService.isAdminObservable();
+  isVisible$: Observable<boolean> = this.navService.isVisibleObservable();
   showMenu = false;
 
-
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, private router: Router, private navService: NavbarService ) {}
 
   logout(){
     this.userService.logout();

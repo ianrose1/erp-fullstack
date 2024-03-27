@@ -11,6 +11,8 @@ public interface AnnouncementService {
 
 	AnnouncementDto createAnnouncement(Long userId, Long companyId, AnnouncementRequestDto announcementRequestDto);
 
+	AnnouncementDto updateAnnouncement(Long id, AnnouncementRequestDto announcementRequestDto);
+
 //	AnnouncementDto createAnnouncement(AnnouncementRequestDto announcementRequestDto);
 
 

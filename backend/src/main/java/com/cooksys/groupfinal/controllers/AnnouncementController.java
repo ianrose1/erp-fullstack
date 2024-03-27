@@ -28,9 +28,14 @@ public class AnnouncementController {
 //		return announcementService.createAnnouncement(announcementRequestDto);
 //	}
 	
-	@PostMapping("/{userId}/{companyId}") 
+	@PostMapping("{userId}/{companyId}") 
 	public AnnouncementDto createAnnouncement(@PathVariable Long userId, @PathVariable Long companyId,  @RequestBody AnnouncementRequestDto announcementRequestDto) {
 		return announcementService.createAnnouncement(userId, companyId, announcementRequestDto);
+	}
+	
+	@PatchMapping("{id}")
+	public AnnouncementDto updateAnnouncement(@PathVariable Long id,  @RequestBody AnnouncementRequestDto announcementRequestDto) {
+		return announcementService.updateAnnouncement(id, announcementRequestDto);
 	}
 
 }
