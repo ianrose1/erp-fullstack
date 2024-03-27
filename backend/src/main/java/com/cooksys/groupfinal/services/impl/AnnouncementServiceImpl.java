@@ -50,12 +50,12 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 		
 		User author = userRepository.findByIdAndActiveTrue(userId);
 		if (author == null) {
-			throw new NotFoundException("The user found with the provided id.");
+			throw new NotFoundException("No user found with the provided id.");
 		}
 		
 		Optional<Company> optionalCompany = companyRepository.findById(companyId);
 		if (optionalCompany.isEmpty()) {
-			throw new NotFoundException("The company found with the provided id.");
+			throw new NotFoundException("No company found with the provided id.");
 		}
 		Company company = optionalCompany.get();
 		
@@ -67,6 +67,27 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 		announcementRepository.saveAndFlush(announcementToCreate);
 		return announcementMapper.entityToDto(announcementToCreate);
 		
+	}
+
+
+	@Override
+	public AnnouncementDto updateAnnouncement(Long id, AnnouncementRequestDto announcementRequestDto) {
+		
+		Optional<Announcement> optionalAnnouncement = announcementRepository.findById(id);
+		if (optionalAnnouncement.isEmpty()) {
+			throw new NotFoundException("No announcement found with the provided id.");
+		}
+		Announcement announcementToUpdate = optionalAnnouncement.get();
+		
+		if (announcementRequestDto.getTitle() != null) {
+			announcementToUpdate.setTitle(announcementRequestDto.getTitle());		}
+		if (announcementRequestDto.getMessage() != null) {
+			announcementToUpdate.setMessage(announcementRequestDto.getMessage());
+		}
+		
+		announcementRepository.saveAndFlush(announcementToUpdate);
+		
+		return announcementMapper.entityToDto(announcementToUpdate);
 	}
 
 //	Original prototype:	
