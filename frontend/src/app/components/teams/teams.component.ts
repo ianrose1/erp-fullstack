@@ -12,6 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 export class TeamsComponent implements OnInit, OnDestroy {
   companyId = 0;
   allTeams: Team[] = [];
+  newTeam: Team | undefined = undefined;
 
   constructor(private teamsService: TeamsService, private userService: UserService) { }
 
@@ -27,7 +28,7 @@ export class TeamsComponent implements OnInit, OnDestroy {
     );
 
     // fetch all teams by company
-    this.teamsService.fetchAllTeamsByCompany(this.companyId)
+    this.teamsService.fetchAllTeamsByCompany(this.companyId);
 
     // initialize teams
     this.subscriptions.add(
@@ -39,5 +40,17 @@ export class TeamsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+
+  // posts a new team when the submit button is clicked
+  onSubmit() {
+    // post new team
+    this.teamsService.postNewTeam();
+
+    this.subscriptions.add(
+      this.teamsService.teamObservable().subscribe((team) => {
+        this.newTeam = team;
+      })
+    )
   }
 }

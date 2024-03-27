@@ -28,7 +28,7 @@ export class TeamsService {
   // gets all teams from provided company
   async fetchAllTeamsByCompany(companyId: number) {
     try {
-      const response = await axios.get(`/company/${companyId}/teams`);
+      const response = await axios.get(`http://localhost:8080/company/${companyId}/teams`);
       console.log("All Teams By Company Response Data: ", response.data);
       this.allTeamsSubject.next(response.data);
     } catch (error) {
@@ -39,7 +39,7 @@ export class TeamsService {
   // gets all teams
   async fetchAllTeams() {
     try {
-      const response = await axios.get('/team');
+      const response = await axios.get('http://localhost:8080/team');
       console.log("All Teams Response Data: ", response.data);
       // TODO: Set up behavior subject for all teams
     }
@@ -51,7 +51,7 @@ export class TeamsService {
   // gets team by id
   async fetchTeamById(teamId: number) {
     try {
-      const response = await axios.get(`/team/${teamId}`);
+      const response = await axios.get(`http://localhost:8080/team/${teamId}`);
       console.log("Team Response Data: ", response.data);
       this.teamSubject.next(response.data);
     }
@@ -63,7 +63,7 @@ export class TeamsService {
   // creates a new team
   async postNewTeam() {
     try {
-      const response = await axios.post(`/team`);
+      const response = await axios.post(`http://localhost:8080/team`);
       console.log("Team Response Data: ", response.data);
       this.teamSubject.next(response.data);
     }
