@@ -18,7 +18,6 @@ export class ProjectsService {
   private teamIdSubject = new BehaviorSubject<number>(0);
   teamId$ = this.teamIdSubject.asObservable();
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor() { }
 
   // getters

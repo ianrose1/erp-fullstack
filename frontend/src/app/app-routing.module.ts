@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [LoggedInGuard] },
   // {path: 'home', component: HomeComponent, canActivate: [LoggedInGuard]},
   { path: 'company', component: SelectCompanyComponent, canActivate: [LoggedInGuard, AdminGuard] },
-  { path: 'projects', component: ProjectsComponent, canActivate: [LoggedInGuard, AdminGuard] },
+  { path: 'projects', component: ProjectsComponent, canActivate: [LoggedInGuard] },
   { path: 'teams', component: TeamsComponent, canActivate: [LoggedInGuard] },
   { path: 'users', component: UsersComponent, canActivate: [LoggedInGuard, AdminGuard] }
 ];
