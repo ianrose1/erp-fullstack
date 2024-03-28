@@ -41,7 +41,9 @@ export class UsersComponent implements OnInit {
       this.showFeedback = true;
     } else {
       const profile: Profile = { firstname, lastname, email, phone: "" }
-      const res = await this.userService.createNewUser(profile, password, admin);
+      const isAdmin = admin;
+      console.log("form isAdmin: ", isAdmin)
+      const res = await this.userService.createNewUser(profile, password, isAdmin);
       if (res.status === 400) {
         console.log("Could not add new user!");
         this.feedbackMessage = "Issue creating new user, please try again later";
