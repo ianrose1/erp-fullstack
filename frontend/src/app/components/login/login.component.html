@@ -7,9 +7,15 @@
         <img class="login-image" src="assets/images/app-icon.png" alt="app-icon-alt">
         <div class="login-form">
             <form class="_form" (ngSubmit)="onSubmit()">
-                <input class="input-box" type="email" [(ngModel)]="loginData.email" placeholder="email" name="email" required>
-                <br>
-                <input class="input-box" type="password" [(ngModel)]="loginData.password" placeholder="password" name="password" required>
+                        <input class="input-box email" type="email" [(ngModel)]="loginData.email" placeholder="email" name="email" required>
+
+                    <br>
+                    <div class="password-box">
+                        <input class="input-box password" [type]="inputType" [(ngModel)]="loginData.password" placeholder="password" name="password" required>
+                        <div class="icon-box">
+                            <img class="eye-icon" [src]="iconPath" (click)="toggleEye()">
+                        </div>
+                </div>
                 <br>
                 <button class="submit-button" type="submit">Login</button>
                 <div *ngIf="loginFailed">

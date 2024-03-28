@@ -211,6 +211,38 @@ export class UserService {
     }
   }
 
+  async editUser(profile: Profile, password: string, admin: boolean, userId: number) {
+    try {
+      const companyId = this.getCurrentCompanyId();
+      const response = await axios.patch(`http://localhost:8080/users/${userId}`, {
+        credentials: {username: profile.email, password},
+        profile,
+        admin,
+        companyId
+      });
+      console.log("Edit User Response Data: ", response.data);
+      return {status: 200, ...response.data};
+    }
+    catch (error) {
+      console.error("Error editing user:", error);
+
+      return {status: 400}; 
+    }
+  }
+
+  async deleteUser(userId: number) {
+    try {
+      const response = await axios.delete(`http://localhost:8080/users/${userId}`);
+      console.log("Delete User Response Data: ", response.data);
+      return {status: 200, ...response.data};
+    }
+    catch (error) {
+      console.error("Error deleting user:", error);
+
+      return {status: 400}; 
+    }
+  }
+
 
 
 

@@ -16,6 +16,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   loginFailed = false;
 
+  closedEyePath = "assets/images/hide-eye.png";
+  openEyePath = "assets/images/show-eye.png"
+  iconPath = this.closedEyePath;
+  inputType = "password";
+
   constructor(private userService: UserService, private router: Router, private navService: NavbarService) { }
 
 
@@ -51,5 +56,10 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.router.navigate(['']);
       }
     }
+  }
+
+  toggleEye() {
+    this.iconPath = this.iconPath === this.closedEyePath ? this.openEyePath : this.closedEyePath;
+    this.inputType = this.inputType === "password" ? "text" : "password";
   }
 }

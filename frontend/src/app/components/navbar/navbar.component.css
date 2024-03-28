@@ -69,7 +69,7 @@ a.active>h1.link {
     height: auto;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 800px) {
     .toggle-button {
         display: block;
         /* Show toggle button */
