@@ -112,7 +112,7 @@ public class UserServiceImpl implements UserService {
         
         userToCreate.setProfile(profileMapper.dtoToEntity(userRequestDto.getProfile()));
         
-        userToCreate.setAdmin(userRequestDto.isAdmin());
+        userToCreate.setAdmin(userRequestDto.getIsAdmin());
         
         Optional<Company> optionalCompany = companyRepository.findById(userRequestDto.getCompanyId());
         if(optionalCompany.isEmpty()) {
@@ -146,8 +146,8 @@ public class UserServiceImpl implements UserService {
         if (userRequestDto.getProfile() != null) {
             userToUpdate.setProfile(profileMapper.dtoToEntity(userRequestDto.getProfile()));
         }
-        if (!userRequestDto.isAdmin()) {
-            userToUpdate.setAdmin(false);
+        if (!userRequestDto.getIsAdmin()) {
+        	userToUpdate.setAdmin(userRequestDto.getIsAdmin());
         }
 
         userRepository.saveAndFlush(userToUpdate);
