@@ -61,32 +61,35 @@
 
 <div class="overlay" *ngIf="showOverlay">
     <div class="form-container">
-        <form class="registration-form">
+        <form class="registration-form" (ngSubmit)="onSubmit()">
             <div>
                 <button class="close-button" type="button" (click)="toggleOverlay()"><img class="close-icon" src="assets/images/cancel.png"></button>
             </div>
             <div class="input-group">
-                <input type="text" id="firstName" placeholder="first name" required>
-                <input type="text" id="lastName" placeholder="last name" required>
+                <input [(ngModel)]="formData.firstname" name="firstname" type="text" placeholder="first name" required>
+                <input [(ngModel)]="formData.lastname" name="lastname" type="text" placeholder="last name" required>
             </div>
             <div class="input-group">
-                <input type="email" id="email" placeholder="email" required>
+                <input [(ngModel)]="formData.email" name="email" type="email" placeholder="email" required>
             </div>
             <div class="input-group">
-                <input type="password" id="password" placeholder="password" required>
-                <input type="password" id="confirmPassword" placeholder="confirm password" required>
+                <input [(ngModel)]="formData.password" name="password" type="password" placeholder="password" required>
+                <input [(ngModel)]="formData.confirmation" name="confirmation" type="password" placeholder="confirm password" required>
             </div>
             
             <div class="input-group center-items">
                 <h3 for="adminRole">Make user an admin role?</h3>
-                <select id="adminRole" required>
-                    <option value="" disabled selected>Pick an option</option>
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
+                <select [(ngModel)]="formData.admin" name="admin" id="adminRole" required>
+                    <option value="false" disabled [selected]>Pick an option</option>
+                    <option value="true">True</option>
+                    <option value="false">False</option>
                 </select>
             </div>
             <div class="center-items">
                 <button type="submit" class="submit-button">Submit</button>
+            </div>
+            <div *ngIf="createFailed" class="error-message">
+                <p>{{ failMessage }}</p>
             </div>
         </form>
     </div>
