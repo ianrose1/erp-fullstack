@@ -123,9 +123,8 @@ public class UserServiceImpl implements UserService {
         company.getUsers().add(userToCreate);
         companyRepository.save(company);
         
-        emailService.sendEmail(userToCreate.getProfile().getEmail(), "Account Creation",
-                String.format("Hello %s %s, \n Your account has been created", userToCreate.getProfile().getFirstname(),
-                        userToCreate.getProfile().getLastname()));
+        emailService.sendEmail(userToCreate.getProfile().getEmail(), "Welcome to Binary Brigade's Dashboard!", createEmailMessage(userToCreate));
+
         return fullUserMapper.entityToFullUserDto(userToCreate);
     }
 
@@ -146,7 +145,7 @@ public class UserServiceImpl implements UserService {
         if (userRequestDto.getProfile() != null) {
             userToUpdate.setProfile(profileMapper.dtoToEntity(userRequestDto.getProfile()));
         }
-        if (!userRequestDto.getIsAdmin()) {
+        if (userRequestDto.getIsAdmin() != null) {
         	userToUpdate.setAdmin(userRequestDto.getIsAdmin());
         }
 
@@ -175,6 +174,22 @@ public class UserServiceImpl implements UserService {
         userRepository.saveAndFlush(userToUpdate);
 
         return fullUserMapper.entityToFullUserDto(userToUpdate);
+    }
+    private String createEmailMessage(User user){
+
+//        String string = "Dear " + user.getProfile().getFirstname() + " " + ;
+//        String s = String.format("Hello %s %s, \n Your account has been created", user.getProfile().getFirstname(),
+//                user.getProfile().getLastname());
+
+        return "Dear " + user.getProfile().getFirstname() + " " + user.getProfile().getLastname() + ", " +
+                "\nWelcome to the Binary Brigade Dashboard!\nWe are thrilled to have you on board. Your account has been successfully created, and you are now part of our community." +
+                "\n\nHere are your account details: " +
+                "\nUsername: " +
+                user.getCredentials().getUsername() +
+                "\nEmail: " +
+                user.getProfile().getEmail() +
+                "\n\nThank you for choosing Binary Brigade.\nWe look forward to serving you and providing you with an exceptional experience." +
+                "\n\nBest regards";
     }
 
 
