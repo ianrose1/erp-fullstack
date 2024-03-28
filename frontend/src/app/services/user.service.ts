@@ -192,13 +192,14 @@ export class UserService {
     this.isAdminSubject.next(true);
   }
 
-  async createNewUser(profile: Profile, password: string, isAdmin: boolean) {
+  async createNewUser(profile: Profile, password: string, admin: boolean) {
     try {
       const companyId = this.getCurrentCompanyId();
       const response = await axios.post(`http://localhost:8080/users`, {
         credentials: {username: profile.email, password},
         profile,
-        isAdmin
+        admin,
+        companyId
       });
       console.log("Post New User Response Data: ", response.data);
       return {status: 200, ...response.data};
