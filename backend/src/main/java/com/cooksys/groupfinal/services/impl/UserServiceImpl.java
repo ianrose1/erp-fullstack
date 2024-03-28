@@ -189,7 +189,7 @@ public class UserServiceImpl implements UserService {
                 "\nEmail: " +
                 user.getProfile().getEmail() +
                 "\n\nThank you for choosing Binary Brigade.\nWe look forward to serving you and providing you with an exceptional experience." +
-                "\n\nBest regards";
+                "\n\nBest regards\nBinary Brigade Team";
     }
 
 
