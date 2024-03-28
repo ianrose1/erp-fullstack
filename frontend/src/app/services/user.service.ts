@@ -13,10 +13,10 @@ export class UserService {
 
   private userNameSubject = new BehaviorSubject<string>("");
 
-  private isLoggedInSubject = new BehaviorSubject<boolean>(true);
+  private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
-  private isAdminSubject = new BehaviorSubject<boolean>(true);
+  private isAdminSubject = new BehaviorSubject<boolean>(false);
   isAdmin$ = this.isAdminSubject.asObservable();
 
   private currentUserSubject = new BehaviorSubject<FullUser | undefined>(undefined);
@@ -25,13 +25,17 @@ export class UserService {
   private allUsersSubject = new BehaviorSubject<FullUser[]>([]);
   allUsers$ = this.allUsersSubject.asObservable();
 
-  private currentCompanyIdSubject = new BehaviorSubject<number>(6);
+  private currentCompanyIdSubject = new BehaviorSubject<number>(-1);
   currentCompanyId$ = this.currentCompanyIdSubject.asObservable();
 
   private companyListSubject = new BehaviorSubject<Company[]>([]);
   companyList$ = this.companyListSubject.asObservable();
 
   constructor() { }
+
+  getCurrentUser() {
+    return this.currentUserSubject.value;
+  }
 
   getCurrentCompanyId() {
     return this.currentCompanyIdSubject.value;

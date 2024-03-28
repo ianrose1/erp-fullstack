@@ -18,6 +18,10 @@ export class AnnouncementsService {
     return this.announcementsSubject.asObservable();
   }
 
+  getCurrentAnnouncements(): Announcement[] {
+    return this.announcementsSubject.value;
+  }
+
   async fetchAnnouncements() {
     try {
       const companyId: number = this.userService.getCurrentCompanyId();
@@ -38,10 +42,11 @@ export class AnnouncementsService {
         message
       });
       console.log("Post New Announcement Response Data: ", response.data);
-      this.announcementsSubject.next(response.data);
+      return {status: 200, ...response.data}; 
     }
     catch (error) {
       console.error("Error creating new announcement:", error);
+      return {status: 400}; 
     }
   }
 
