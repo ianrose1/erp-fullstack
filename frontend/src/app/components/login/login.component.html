@@ -12,21 +12,10 @@
                 <input class="input-box" type="password" [(ngModel)]="loginData.password" placeholder="password" name="password" required>
                 <br>
                 <button class="submit-button" type="submit">Login</button>
-                <div *ngIf="loginFailed" class="error-message">
+                <div *ngIf="loginFailed">
                     <p>Invalid credentials, please try again</p>
                 </div>
             </form>
-        </div>
-
-    </div>
-    <div class="login-container">
-
-        <div class="white">
-            <br>
-            <br>
-            <button (click)="loginAdmin()">Login Admin</button>
-            <button (click)="loginNotAdmin()">Login Not Admin</button>
-                    
         </div>
     </div>
 </div>
