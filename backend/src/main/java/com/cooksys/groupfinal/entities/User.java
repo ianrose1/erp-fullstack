@@ -37,6 +37,8 @@ public class User {
 	
 	private String status = "PENDING";
 	
+	private boolean isDeleted;
+	
 	@OneToMany(mappedBy = "author")
 	@EqualsAndHashCode.Exclude
 	private Set<Announcement> announcements = new HashSet<>();

@@ -23,11 +23,6 @@ public class AnnouncementController {
 		return announcementService.getAllAnnouncements();
 	}
 	
-//	@PostMapping 
-//	public AnnouncementDto createAnnouncement(@RequestBody AnnouncementRequestDto announcementRequestDto) {
-//		return announcementService.createAnnouncement(announcementRequestDto);
-//	}
-	
 	@PostMapping("{userId}/{companyId}") 
 	public AnnouncementDto createAnnouncement(@PathVariable Long userId, @PathVariable Long companyId,  @RequestBody AnnouncementRequestDto announcementRequestDto) {
 		return announcementService.createAnnouncement(userId, companyId, announcementRequestDto);
@@ -37,5 +32,11 @@ public class AnnouncementController {
 	public AnnouncementDto updateAnnouncement(@PathVariable Long id,  @RequestBody AnnouncementRequestDto announcementRequestDto) {
 		return announcementService.updateAnnouncement(id, announcementRequestDto);
 	}
+	
+	@DeleteMapping("{id}")
+	public AnnouncementDto deleteAnnouncement(@PathVariable Long id) {
+		return announcementService.deleteAnnouncement(id);
+	}
+	
 
 }

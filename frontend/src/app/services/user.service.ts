@@ -198,7 +198,7 @@ export class UserService {
       const response = await axios.post(`http://localhost:8080/users`, {
         credentials: {username: profile.email, password},
         profile,
-        admin,
+        isAdmin: admin,
         companyId
       });
       console.log("Post New User Response Data: ", response.data);
@@ -217,7 +217,7 @@ export class UserService {
       const response = await axios.patch(`http://localhost:8080/users/${userId}`, {
         credentials: {username: profile.email, password},
         profile,
-        admin,
+        isAdmin: admin,
         companyId
       });
       console.log("Edit User Response Data: ", response.data);
