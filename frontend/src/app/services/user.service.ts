@@ -13,10 +13,10 @@ export class UserService {
 
   private userNameSubject = new BehaviorSubject<string>("");
 
-  private isLoggedInSubject = new BehaviorSubject<boolean>(true);
+  private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
-  private isAdminSubject = new BehaviorSubject<boolean>(true);
+  private isAdminSubject = new BehaviorSubject<boolean>(false);
   isAdmin$ = this.isAdminSubject.asObservable();
 
   private currentUserSubject = new BehaviorSubject<FullUser | undefined>(undefined);
@@ -25,13 +25,17 @@ export class UserService {
   private allUsersSubject = new BehaviorSubject<FullUser[]>([]);
   allUsers$ = this.allUsersSubject.asObservable();
 
-  private currentCompanyIdSubject = new BehaviorSubject<number>(6);
+  private currentCompanyIdSubject = new BehaviorSubject<number>(-1);
   currentCompanyId$ = this.currentCompanyIdSubject.asObservable();
 
   private companyListSubject = new BehaviorSubject<Company[]>([]);
   companyList$ = this.companyListSubject.asObservable();
 
   constructor() { }
+
+  getCurrentUser() {
+    return this.currentUserSubject.value;
+  }
 
   getCurrentCompanyId() {
     return this.currentCompanyIdSubject.value;
@@ -93,8 +97,11 @@ export class UserService {
       this.userNameSubject.next(name);
       // this.userNameSubject.next(this.getFirstAndLastInitial("Pinky", "Panther"));
       this.companyListSubject.next(newUser.companies);
+      const companies = newUser.companies;
+      this.currentCompanyIdSubject.next(companies.length > 0 ? companies[0].id : 6);
       this.isLoggedInSubject.next(true);
       this.isAdminSubject.next(newUser.admin);
+      console.log("updated admin inside update call")
     }
   }
 
@@ -125,6 +132,8 @@ export class UserService {
 
       this.updateCurrentUser(user);
 
+      console.log("Finished with update call");
+
       return {status: 200, ...response.data};
       
     } catch (error) {
@@ -150,7 +159,8 @@ export class UserService {
 
   async authenticate(username: string, password: string) {
     const response = await this.fetchUserFromDB(username, password);
-
+    console.log("Authenticate Response: ", response)
+    console.log("Authenticate Response Status: ", response.status)
     if (response.status === 400) {
       this.isLoggedInSubject.next(false);
       this.isAdminSubject.next(false);
@@ -159,7 +169,7 @@ export class UserService {
       this.isLoggedInSubject.next(true);
     }
     
-    if (response.isAdmin) {
+    if (response.admin) {
       this.isAdminSubject.next(true);
     } else {
       this.isAdminSubject.next(false);
@@ -184,15 +194,19 @@ export class UserService {
 
   async createNewUser(profile: Profile, password: string, isAdmin: boolean) {
     try {
+      const companyId = this.getCurrentCompanyId();
       const response = await axios.post(`http://localhost:8080/users`, {
         credentials: {username: profile.email, password},
         profile,
         isAdmin
       });
       console.log("Post New User Response Data: ", response.data);
+      return {status: 200, ...response.data};
     }
     catch (error) {
       console.error("Error creating new user:", error);
+
+      return {status: 400}; 
     }
   }
 

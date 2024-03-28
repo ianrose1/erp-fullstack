@@ -59,13 +59,13 @@ public class Seeder implements CommandLineRunner {
 	  
 	  User user1 = new User();
 	  Credentials creds1 = new Credentials();
-	  creds1.setUsername("cousingreg");
-	  creds1.setPassword(encryptionService.encryptPassword("mosteligiblebachelor"));
+	  creds1.setUsername("b");
+	  creds1.setPassword(encryptionService.encryptPassword("b"));
 	  user1.setCredentials(creds1);
 	  Profile profile1 = new Profile();
 	  profile1.setFirstname("Greg");
 	  profile1.setLastname("Hirsch");
-	  profile1.setEmail("ghirsch@email.com");
+	  profile1.setEmail("b");
 	  profile1.setPhone("(000) 000-0000");
 	  user1.setProfile(profile1);
 	  user1.setActive(true);
@@ -124,12 +124,12 @@ public class Seeder implements CommandLineRunner {
 	  User user6 = new User();
 	  Credentials creds6 = new Credentials();
 	  creds6.setUsername("thisismycompany");
-	  creds6.setPassword(encryptionService.encryptPassword("getyourowncompany"));
+	  creds6.setPassword(encryptionService.encryptPassword("a"));
 	  user6.setCredentials(creds6);
 	  Profile profile6 = new Profile();
 	  profile6.setFirstname("Logan");
 	  profile6.setLastname("Roy");
-	  profile6.setEmail("lroy@email.com");
+	  profile6.setEmail("a");
 	  profile6.setPhone("(555) 555-5555");
 	  user6.setProfile(profile6);
 	  user6.setActive(true);
@@ -255,7 +255,7 @@ public class Seeder implements CommandLineRunner {
 	  company2.setName("Cook Systems");
 	  company2.setDescription("We are Cook Systems.");
 	  company2.setAnnouncements(new HashSet<Announcement>(Arrays.asList(announcement3)));
-	  company2.setUsers(new HashSet<User>(Arrays.asList(user10, user11, user12)));
+	  company2.setUsers(new HashSet<User>(Arrays.asList(user6, user10, user11, user12)));
 	  company2.setTeams(new HashSet<Team>(Arrays.asList(team7)));
 	  
 	  project1.setName("Brightstar Theme Park Expansion");
@@ -327,7 +327,7 @@ public class Seeder implements CommandLineRunner {
 	  user5.setCompanies(new HashSet<Company>(Arrays.asList(company1)));
 	  user5.setTeams(new HashSet<Team>(Arrays.asList(team2, team6)));
 
-	  user6.setCompanies(new HashSet<Company>(Arrays.asList(company1)));
+	  user6.setCompanies(new HashSet<Company>(Arrays.asList(company1, company2)));
 	  user6.setTeams(new HashSet<Team>(Arrays.asList(team5)));
 
 	  user7.setCompanies(new HashSet<Company>(Arrays.asList(company1)));

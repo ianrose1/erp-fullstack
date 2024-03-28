@@ -45,12 +45,15 @@ export class SelectCompanyComponent implements OnInit, OnDestroy {
 
   // Receives selected company and emits the value
   onSelect() {
-    if (this.configForm.valid) {
-      const formValue = this.configForm.value;
-      this.formValueEmitter.emit(formValue);
-      // go to announcements page
-      this.router.navigateByUrl('')
-    }
+    console.log("Form Value: ", this.configForm.value.selectedCompany)
+    this.userService.updateCurrentCompanyId(this.configForm.value.selectedCompany);
+    this.router.navigate(['']);
+    // if (this.configForm.valid) {
+    //   const formValue = this.configForm.value;
+    //   this.formValueEmitter.emit(formValue);
+    //   // go to announcements page
+    //   this.router.navigateByUrl('')
+    // }
   }
 
 }
