@@ -58,6 +58,15 @@ justify-content: center;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 50%;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
 }
 
 .input-box{
@@ -70,6 +79,7 @@ justify-content: center;
     text-align: center;
     padding-bottom: 3%;
     font-size: 1em;
+    /* width: 45% */
 }
 
 .submit-button{
@@ -84,4 +94,39 @@ justify-content: center;
 
 .submit-button:hover {
     background-color: #1BA098;
+}
+
+.password {
+    /* width: 150%; */
+    margin-left: 22px;
+}
+
+.email-box {
+}
+
+.email {
+    /* margin-right: 50px; */
+}
+
+.password-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 6%;
+    /* width: 90%; */
+}
+
+.eye-icon {
+    width: 22px;
+    height: auto;
+    /* border-bottom: 3px solid #FFFFFF; */
+    padding: 2px;
+    background-color: rgb(27, 160, 152, 0.6);
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 6px;
+}
+
+.icon-box {
+
 }
