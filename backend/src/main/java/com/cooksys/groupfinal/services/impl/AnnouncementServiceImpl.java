@@ -90,6 +90,18 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 		return announcementMapper.entityToDto(announcementToUpdate);
 	}
 
+
+	@Override
+	public AnnouncementDto deleteAnnouncement(Long id) {
+		Optional<Announcement> optionalAnnouncement = announcementRepository.findById(id);
+		if (optionalAnnouncement.isEmpty()) {
+			throw new NotFoundException("No announcement found with the provided id.");
+		}
+		Announcement announcementToDelete = optionalAnnouncement.get();
+		announcementToDelete.setDeleted(true);
+		return announcementMapper.entityToDto(announcementRepository.saveAndFlush(announcementToDelete));
+	}
+
 //	Original prototype:	
 //	@Override
 //	public AnnouncementDto createAnnouncement(AnnouncementRequestDto announcementRequestDto) {

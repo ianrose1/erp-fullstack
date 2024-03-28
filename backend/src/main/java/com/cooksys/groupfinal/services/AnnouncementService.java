@@ -13,6 +13,8 @@ public interface AnnouncementService {
 
 	AnnouncementDto updateAnnouncement(Long id, AnnouncementRequestDto announcementRequestDto);
 
+	AnnouncementDto deleteAnnouncement(Long id);
+
 //	AnnouncementDto createAnnouncement(AnnouncementRequestDto announcementRequestDto);
 
 
