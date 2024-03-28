@@ -102,35 +102,4 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 		return announcementMapper.entityToDto(announcementRepository.saveAndFlush(announcementToDelete));
 	}
 
-//	Original prototype:	
-//	@Override
-//	public AnnouncementDto createAnnouncement(AnnouncementRequestDto announcementRequestDto) {
-//		
-//		// Assuming we retain this info after the login flow
-//		Credentials creds = credentialsMapper.dtoToEntity(announcementRequestDto.getCredentials());
-//		
-//		Optional<User> optionalUser = userRepository.findByCredentialsUsernameAndActiveTrue(creds.getUsername());
-//        if (optionalUser.isEmpty()) {
-//            throw new NotFoundException("The username provided does not belong to an active user.");
-//        }
-//        User author = optionalUser.get();
-//        
-//        // Assuming we will get the company name from the selected option from the dropdown
-//        Optional<Company> optionalCompany = companyRepository.findByName(announcementRequestDto.getCompanyName());
-//        if (optionalCompany.isEmpty()) {
-//        	throw new  NotFoundException("The company's name provided does not exist.");
-//        }
-//        Company company = optionalCompany.get();
-//		
-//		Announcement announcementToCreate = announcementMapper.dtoToEntity(announcementRequestDto);
-//		announcementRepository.save(announcementToCreate);
-//		announcementToCreate.setAuthor(author); // TODO: to revisit as AnnouncementDto currently has a BasicUserDto author field
-//		announcementToCreate.setCompany(company);
-//		
-//		announcementRepository.saveAndFlush(announcementToCreate);
-//		
-//		return announcementMapper.entityToDto(announcementToCreate);
-//	}
-	
-
 }

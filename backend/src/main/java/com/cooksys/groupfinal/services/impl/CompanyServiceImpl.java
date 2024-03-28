@@ -1,9 +1,9 @@
 package com.cooksys.groupfinal.services.impl;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -21,9 +21,9 @@ import com.cooksys.groupfinal.entities.Team;
 import com.cooksys.groupfinal.entities.User;
 import com.cooksys.groupfinal.exceptions.NotFoundException;
 import com.cooksys.groupfinal.mappers.AnnouncementMapper;
+import com.cooksys.groupfinal.mappers.FullUserMapper;
 import com.cooksys.groupfinal.mappers.ProjectMapper;
 import com.cooksys.groupfinal.mappers.TeamMapper;
-import com.cooksys.groupfinal.mappers.FullUserMapper;
 import com.cooksys.groupfinal.repositories.CompanyRepository;
 import com.cooksys.groupfinal.repositories.TeamRepository;
 import com.cooksys.groupfinal.services.CompanyService;
@@ -68,11 +68,22 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public Set<AnnouncementDto> getAllAnnouncements(Long id) {
+//		Company company = findCompany(id);
+//		List<Announcement> sortedList = new ArrayList<Announcement>(company.getAnnouncements());
+//		sortedList.sort(Comparator.comparing(Announcement::getDate).reversed());
+//		Set<Announcement> sortedSet = new HashSet<Announcement>(sortedList);
+//		return announcementMapper.entitiesToDtos(sortedSet);
+
 		Company company = findCompany(id);
-		List<Announcement> sortedList = new ArrayList<Announcement>(company.getAnnouncements());
-		sortedList.sort(Comparator.comparing(Announcement::getDate).reversed());
-		Set<Announcement> sortedSet = new HashSet<Announcement>(sortedList);
-		return announcementMapper.entitiesToDtos(sortedSet);
+	    Set<AnnouncementDto> sortedAnnouncements = new LinkedHashSet<>();
+	    for (Announcement announcement : company.getAnnouncements()) {
+	        if (!announcement.isDeleted()) {
+	            sortedAnnouncements.add(announcementMapper.entityToDto(announcement));
+	        }
+	    }
+	    List<AnnouncementDto> sortedList = new ArrayList<>(sortedAnnouncements);
+	    sortedList.sort(Comparator.comparing(AnnouncementDto::getDate).reversed());
+	    return new LinkedHashSet<>(sortedList);
 	}
 
 	@Override
