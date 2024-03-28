@@ -13,11 +13,10 @@ h2, p {
 }
 
 .add-user-container {
-    width: 70%;
+    width: 80%;
     display: flex;
     align-items: left;
     justify-content: left;
-    ;
 }
 
 .add-user-button {
@@ -33,7 +32,7 @@ h2, p {
 .user-box {
     border: 3px solid #DEB992;
     border-radius: 10px;
-    width: 70%;
+    width: 80%;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -177,7 +176,7 @@ h2, p {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    margin-bottom: 2%;
+    margin-bottom: 2% 70% 2% 0;
 }
 
 .options-box button {
@@ -197,11 +196,13 @@ h2, p {
 
 .delete-button {
     margin: 2%;
+    margin-right: 0;
     background-color: #051623;
 }
 
 .key-button {
     margin: 2%;
+    margin-left: 0;
     background-color: #051623;
 }
 
