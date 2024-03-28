@@ -3,9 +3,10 @@
         <div>
             <h1 class="title">Announcements</h1>
         </div>
-        <div class="button-container">
+        <div class="button-container" *ngIf="isAdmin$ | async">
             <button class="new-announcement-button" (click)="toggleOverlay()">New</button>
         </div>
+        <br>
     </div>
     <!-- <div class="announcements">
         <div class="announcement-container">

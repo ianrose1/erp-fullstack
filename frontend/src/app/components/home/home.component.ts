@@ -11,6 +11,8 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class HomeComponent implements OnInit {
 
+  isAdmin$: Observable<boolean> = this.userService.isAdminObservable();
+
   formatter = new Intl.DateTimeFormat('en-US', {
     month: 'long',
     day: 'numeric',
