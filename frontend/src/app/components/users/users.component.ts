@@ -45,6 +45,12 @@ export class UsersComponent implements OnInit {
         this.feedbackMessage = "All fields are required";
         return;
       }
+    } else if (this.formMode === "password") {
+      if (!password || !confirmation) {
+        console.log("All fields are required");
+        this.feedbackMessage = "All fields are required";
+        return;
+      }
     } else {
       if (!firstname || !lastname || !email || !admin) {
         console.log("All fields are required");
@@ -68,6 +74,9 @@ export class UsersComponent implements OnInit {
         break;
       case "delete":
         await this.delete();
+        break;
+      case "password":
+        await this.updatePassword();
         break;
       default:
         break;
@@ -123,14 +132,29 @@ export class UsersComponent implements OnInit {
     this.showFeedback = true;
     const res = await this.userService.deleteUser(this.userId);
     if (res.status === 400) {
-      console.log("Could not add new user!");
-      this.feedbackMessage = "Issue creating new user, please try again later";
+      console.log("Could not delete user!");
+      this.feedbackMessage = "Issue deleting user, please try again later";
     } else {
-      console.log("Successfully created user!");
-      this.feedbackMessage = "Successfully created user!";
+      console.log("Successfully deleted user!");
+      this.feedbackMessage = "Successfully deleted user!";
       await this.userService.fetchAllUsers();
     }
+  }
 
+  async updatePassword() {
+    console.log('Form Data:', this.formData);
+    this.feedbackMessage = "Processing...";
+    this.showFeedback = true;
+    const password: string = this.formData.password
+    const res = await this.userService.updatePassword(this.userId, password);
+    if (res.status === 400) {
+      console.log("Could not update password!");
+      this.feedbackMessage = "Issue updating password, please try again later";
+    } else {
+      console.log("Successfully updated password!");
+      this.feedbackMessage = "Successfully updated password!";
+      await this.userService.fetchAllUsers();
+    }
   }
 
   toggleOverlay(
@@ -155,10 +179,10 @@ export class UsersComponent implements OnInit {
   ) {
     this.formMode = formMode;
     this.formData = formDataObj;
-    
+
     console.log("Updated formData: ", this.formData);
     this.userId = userId;
-    
+
     if (formMode === "delete") {
       this.feedbackMessage = "Click Submit to delete this user";
       this.showFeedback = true;

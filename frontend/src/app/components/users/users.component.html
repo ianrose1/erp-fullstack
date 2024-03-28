@@ -79,19 +79,19 @@
             <div>
                 <button class="close-button" type="button" (click)="toggleOverlay()"><img class="close-icon" src="assets/images/cancel.png"></button>
             </div>
-            <div class="input-group">
+            <div class="input-group" *ngIf="formMode !== 'password'">
                 <input [(ngModel)]="formData.firstname" name="firstname" type="text" placeholder="first name" required>
                 <input [(ngModel)]="formData.lastname" name="lastname" type="text" placeholder="last name" required>
             </div>
-            <div class="input-group">
+            <div class="input-group" *ngIf="formMode !== 'password'">
                 <input [(ngModel)]="formData.email" name="email" type="email" placeholder="email" required>
             </div>
-            <div class="input-group" *ngIf="formMode === 'create'">
+            <div class="input-group" *ngIf="formMode === 'create' || formMode === 'password'">
                 <input [(ngModel)]="formData.password" name="password" type="password" placeholder="password" required>
                 <input [(ngModel)]="formData.confirmation" name="confirmation" type="password" placeholder="confirm password" required>
             </div>
             
-            <div class="input-group center-items">
+            <div class="input-group center-items" *ngIf="formMode !== 'password'">
                 <h3 for="adminRole">Make user an admin role?</h3>
                 <select [(ngModel)]="formData.admin" name="admin" id="adminRole" required>
                     <option value="" disabled [selected]>Pick an option</option>
@@ -103,7 +103,7 @@
                 <button type="submit" class="submit-button">Submit</button>
             </div>
             <div *ngIf="showFeedback" class="form-feedback">
-                <p>{{ feedbackMessage }}</p>
+                <p class="white">{{ feedbackMessage }}</p>
             </div>
         </form>
     </div>
