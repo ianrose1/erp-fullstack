@@ -97,8 +97,10 @@ export class UserService {
       this.userNameSubject.next(name);
       // this.userNameSubject.next(this.getFirstAndLastInitial("Pinky", "Panther"));
       this.companyListSubject.next(newUser.companies);
+      this.currentCompanyIdSubject.next(newUser.companies[0].id);
       this.isLoggedInSubject.next(true);
       this.isAdminSubject.next(newUser.admin);
+      console.log("updated admin inside update call")
     }
   }
 
@@ -129,6 +131,8 @@ export class UserService {
 
       this.updateCurrentUser(user);
 
+      console.log("Finished with update call");
+
       return {status: 200, ...response.data};
       
     } catch (error) {
@@ -154,7 +158,8 @@ export class UserService {
 
   async authenticate(username: string, password: string) {
     const response = await this.fetchUserFromDB(username, password);
-
+    console.log("Authenticate Response: ", response)
+    console.log("Authenticate Response Status: ", response.status)
     if (response.status === 400) {
       this.isLoggedInSubject.next(false);
       this.isAdminSubject.next(false);
@@ -163,7 +168,7 @@ export class UserService {
       this.isLoggedInSubject.next(true);
     }
     
-    if (response.isAdmin) {
+    if (response.admin) {
       this.isAdminSubject.next(true);
     } else {
       this.isAdminSubject.next(false);
