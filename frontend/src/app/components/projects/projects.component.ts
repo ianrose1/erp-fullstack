@@ -38,8 +38,6 @@ export class ProjectsComponent implements OnInit, OnDestroy {
       })
     );
 
-    console.log(this.teamId, this.companyId)
-
     // get current team
     this.teamsService.fetchTeamById(this.teamId);
 
