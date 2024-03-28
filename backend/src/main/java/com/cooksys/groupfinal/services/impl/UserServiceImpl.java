@@ -3,34 +3,36 @@ package com.cooksys.groupfinal.services.impl;
 import java.util.Optional;
 import java.util.Set;
 
-import com.cooksys.groupfinal.dtos.LoginDto;
-import com.cooksys.groupfinal.dtos.UserRequestDto;
-import com.cooksys.groupfinal.mappers.ProfileMapper;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.cooksys.groupfinal.dtos.CredentialsDto;
 import com.cooksys.groupfinal.dtos.FullUserDto;
+import com.cooksys.groupfinal.dtos.LoginDto;
+import com.cooksys.groupfinal.dtos.UserRequestDto;
+import com.cooksys.groupfinal.entities.Company;
 import com.cooksys.groupfinal.entities.Credentials;
+import com.cooksys.groupfinal.entities.Team;
 import com.cooksys.groupfinal.entities.User;
 import com.cooksys.groupfinal.exceptions.BadRequestException;
 import com.cooksys.groupfinal.exceptions.NotAuthorizedException;
 import com.cooksys.groupfinal.exceptions.NotFoundException;
 import com.cooksys.groupfinal.mappers.CredentialsMapper;
 import com.cooksys.groupfinal.mappers.FullUserMapper;
+import com.cooksys.groupfinal.mappers.ProfileMapper;
+import com.cooksys.groupfinal.repositories.CompanyRepository;
+import com.cooksys.groupfinal.repositories.TeamRepository;
 import com.cooksys.groupfinal.repositories.UserRepository;
 import com.cooksys.groupfinal.services.UserService;
 
 import lombok.RequiredArgsConstructor;
-
-import javax.swing.text.html.Option;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final CompanyRepository companyRepository;
+    private final TeamRepository teamRepository;
     private final FullUserMapper fullUserMapper;
     private final CredentialsMapper credentialsMapper;
     private final ProfileMapper profileMapper;
@@ -105,11 +107,22 @@ public class UserServiceImpl implements UserService {
 
         Credentials credentials = credentialsMapper.dtoToEntity(userRequestDto.getCredentials());
         credentials.setPassword(encryptionService.encryptPassword(credentials.getPassword()));
-
         userToCreate.setCredentials(credentials);
         userRepository.saveAndFlush(userToCreate);
+        
         userToCreate.setProfile(profileMapper.dtoToEntity(userRequestDto.getProfile()));
-
+        
+        userToCreate.setAdmin(userRequestDto.isAdmin());
+        
+        Optional<Company> optionalCompany = companyRepository.findById(userRequestDto.getCompanyId());
+        if(optionalCompany.isEmpty()) {
+        	throw new NotFoundException("No company found with the provided ID");
+        }
+        Company company = optionalCompany.get();
+        userToCreate.getCompanies().add(company);
+        company.getUsers().add(userToCreate);
+        companyRepository.save(company);
+        
         emailService.sendEmail(userToCreate.getProfile().getEmail(), "Account Creation",
                 String.format("Hello %s %s, \n Your account has been created", userToCreate.getProfile().getFirstname(),
                         userToCreate.getProfile().getLastname()));

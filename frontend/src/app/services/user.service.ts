@@ -192,13 +192,13 @@ export class UserService {
     this.isAdminSubject.next(true);
   }
 
-  async createNewUser(profile: Profile, password: string, isAdmin: boolean) {
+  async createNewUser(profile: Profile, password: string, admin: boolean) {
     try {
       const companyId = this.getCurrentCompanyId();
       const response = await axios.post(`http://localhost:8080/users`, {
         credentials: {username: profile.email, password},
         profile,
-        isAdmin,
+        admin,
         companyId
       });
       console.log("Post New User Response Data: ", response.data);
@@ -206,6 +206,38 @@ export class UserService {
     }
     catch (error) {
       console.error("Error creating new user:", error);
+
+      return {status: 400}; 
+    }
+  }
+
+  async editUser(profile: Profile, password: string, admin: boolean, userId: number) {
+    try {
+      const companyId = this.getCurrentCompanyId();
+      const response = await axios.patch(`http://localhost:8080/users/${userId}`, {
+        credentials: {username: profile.email, password},
+        profile,
+        admin,
+        companyId
+      });
+      console.log("Edit User Response Data: ", response.data);
+      return {status: 200, ...response.data};
+    }
+    catch (error) {
+      console.error("Error editing user:", error);
+
+      return {status: 400}; 
+    }
+  }
+
+  async deleteUser(userId: number) {
+    try {
+      const response = await axios.delete(`http://localhost:8080/users/${userId}`);
+      console.log("Delete User Response Data: ", response.data);
+      return {status: 200, ...response.data};
+    }
+    catch (error) {
+      console.error("Error deleting user:", error);
 
       return {status: 400}; 
     }

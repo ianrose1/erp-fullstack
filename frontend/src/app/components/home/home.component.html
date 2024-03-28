@@ -4,7 +4,7 @@
             <h1 class="title">Announcements</h1>
         </div>
         <div class="button-container" *ngIf="isAdmin$ | async">
-            <button class="new-announcement-button" (click)="toggleOverlay()">New</button>
+            <button class="new-announcement-button" (click)="toggleOverlay('create')">New</button>
         </div>
         <br>
     </div>
@@ -45,6 +45,10 @@
                     <p> {{ announcement.message }} </p>
                 </div>
             </div>
+            <div class="tools-container" *ngIf="isAdmin$ | async">
+                <button class="edit-button" (click)="toggleOverlay('edit', announcement.message, announcement.id)">Edit</button>
+                <button class="delete-button" (click)="toggleOverlay('delete', 'Click Submit to delete this announcement', announcementId)">Delete</button>
+            </div>
         </div>
     </div>
 </div>
@@ -66,8 +70,8 @@
             <div class="center-items">
                 <button type="submit" class="submit-button">Submit</button>
             </div>
-            <div *ngIf="createFailed" class="error-message">
-                <p>Could not add announcement, please try again</p>
+            <div *ngIf="showFeedback" class="form-feedback">
+                <p>{{ feedbackMessage }}</p>
             </div>
         </form>
     </div>
