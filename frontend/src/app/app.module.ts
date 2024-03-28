@@ -17,6 +17,7 @@ import { UsersComponent } from './components/users/users.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
+import { MatCardModule } from '@angular/material/card';
 
 // const routes: Routes = [
 //   { path: "teams", component: TeamsComponent },
@@ -43,6 +44,7 @@ import { MatTableModule } from '@angular/material/table';
     AppRoutingModule,
     NoopAnimationsModule,
     MatTableModule,
+    MatCardModule,
     ReactiveFormsModule,
     FormsModule
   ],

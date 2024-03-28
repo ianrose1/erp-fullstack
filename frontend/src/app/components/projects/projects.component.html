@@ -1,1 +1,16 @@
-<p>projects works!</p>
+<div class="projects-page">
+    <div class="back-to-teams">
+        <a [routerLink]="['/teams']"><button>&lt;back</button></a>
+    </div>
+    <h1>Projects for team {{ currentTeam?.name }}</h1>
+    <div class="projects-box">
+        <div class="project-box">
+            <ul>
+                <li *ngFor="let project of allProjects">
+                    <p>{{ project.name }} {{ project.active }}</p>
+                    <p>{{ project.description }}</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

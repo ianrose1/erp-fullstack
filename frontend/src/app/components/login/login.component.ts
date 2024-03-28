@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   loginFailed = false;
 
-  constructor(private userService: UserService, private router: Router, private navService: NavbarService) {}
+  constructor(private userService: UserService, private router: Router, private navService: NavbarService) { }
 
 
   ngOnInit(): void {
@@ -27,12 +27,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.navService.show();
   }
 
-  loginNotAdmin(){
+  loginNotAdmin() {
     this.userService.loginAsNotAdmin();
     this.router.navigate(['']);
   }
 
-  loginAdmin(){
+  loginAdmin() {
     this.userService.loginAsAdmin();
     this.router.navigate(['company']);
   }
@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.loginFailed = true;
     } else {
       console.log("Successful login");
-      if (this.userService.isAdmin()){
+      if (this.userService.isAdmin()) {
         this.router.navigate(['company']);
       } else {
         this.router.navigate(['']);

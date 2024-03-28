@@ -3,6 +3,7 @@ import { Team } from '../../interfaces/team';
 import { TeamsService } from 'src/app/services/teams.service';
 import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
+import { ProjectsService } from 'src/app/services/projects.service';
 
 @Component({
   selector: 'app-teams',
@@ -14,7 +15,7 @@ export class TeamsComponent implements OnInit, OnDestroy {
   allTeams: Team[] = [];
   newTeam: Team | undefined = undefined;
 
-  constructor(private teamsService: TeamsService, private userService: UserService) { }
+  constructor(private teamsService: TeamsService, private userService: UserService, private projectsService: ProjectsService) { }
 
   // subscriptions
   private subscriptions = new Subscription();
@@ -45,12 +46,17 @@ export class TeamsComponent implements OnInit, OnDestroy {
   // posts a new team when the submit button is clicked
   onSubmit() {
     // post new team
-    this.teamsService.postNewTeam();
+    // TODO:"get parameters for postNewTeam"
+    // this.teamsService.postNewTeam();
 
     this.subscriptions.add(
       this.teamsService.teamObservable().subscribe((team) => {
         this.newTeam = team;
       })
     )
+  }
+
+  OnClickTeam(teamId: number) {
+    this.projectsService.updateTeamId(teamId);
   }
 }
