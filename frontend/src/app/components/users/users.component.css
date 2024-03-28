@@ -7,15 +7,17 @@
     text-align: center;
 }
 
-.add-user-container{
+.add-user-container {
     width: 70%;
     display: flex;
     align-items: left;
-    justify-content: left;;
+    justify-content: left;
+    ;
 }
 
-.add-user-button{
-    background-color: #1BA098; /* Example blue color */
+.add-user-button {
+    background-color: #1BA098;
+    /* Example blue color */
     color: #FFFFFF;
     padding: 10px 20px;
     border: none;
@@ -42,7 +44,7 @@
     border-bottom: .4px solid #DEB992;
 }
 
-.table-row{
+.table-row {
     color: #DEB992;
     text-align: center;
     border-bottom: .4px solid #DEB992;
@@ -50,10 +52,113 @@
 
 .active-yes,
 .admin-yes {
-  color: #00B11C; /* Active green color */
+    color: #00B11C;
+    /* Active green color */
 }
 
 .active-no,
 .admin-no {
-  color: #FF0000; /* Inactive red color */
+    color: #FF0000;
+    /* Inactive red color */
+}
+
+
+/* --------------------------------------------- */
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 21;
+}
+
+
+.form-container {
+    background-color: #0B2D45;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    padding: 3% 9%;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #DEB992;
+    z-index: 22;
+}
+
+.registration-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group {
+    margin-bottom: 1rem;
+    display: flex;
+}
+
+.input-group input {
+    fill: none;
+    border: none;
+    background-color: #0B2D45;
+    border-bottom: 1px solid #DEB992;
+    margin: 5% 2%;
+    ;
+    width: 100%;
+    text-align: left;
+    padding: 2% 0;
+}
+
+.input-group select {
+    background-color: white;
+    text-align: center;
+    color: #005594;
+    font-weight: bold;
+    border: 1px solid lavender;
+    padding: 4px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.submit-button {
+    background-color: #1BA098;
+    padding: 3% 10%;
+    border: 2px solid #1BA098;
+    border-radius: 10px;
+    color: #FFFFFF;
+    cursor: pointer;
+    margin-top: 20%;
+    width: 50%;
+}
+
+.close-button {
+    font-size: 1.5rem;
+    color: #ffffff;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: right;
+}
+
+.close-icon {
+    width: 30%;
+    height: auto;
+    cursor: pointer;
+}
+
+
+.center-items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

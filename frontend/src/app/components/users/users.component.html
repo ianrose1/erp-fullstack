@@ -1,4 +1,3 @@
-<app-overlay-form [formConfig]="formConfig"></app-overlay-form>
 <div class="white user-container">
     <div>
         <h2> User Registry</h2>
@@ -23,7 +22,8 @@
 
                     <ng-container matColumnDef="team">
                         <th mat-header-cell *matHeaderCellDef class="header">Team</th>
-                        <td mat-cell *matCellDef="let user" class="table-row">{{ user.teams.length > 0 ? user.teams[0].name : "No Team" }}</td>
+                        <td mat-cell *matCellDef="let user" class="table-row">{{ user.teams.length > 0 ?
+                            user.teams[0].name : "No Team" }}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="active">
@@ -44,7 +44,8 @@
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="['name', 'email', 'team', 'active', 'admin', 'status']"></tr>
-                    <tr mat-row *matRowDef="let row; columns: ['name', 'email', 'team', 'active', 'admin', 'status'];"></tr>
+                    <tr mat-row *matRowDef="let row; columns: ['name', 'email', 'team', 'active', 'admin', 'status'];">
+                    </tr>
                 </table>
             </div>
         </div>
@@ -52,6 +53,41 @@
 
     <br>
     <div class="add-user-container">
-        <button class="add-user-button">ADD USER</button>
+        <button class="add-user-button" (click)="toggleOverlay()">ADD USER</button>
+    </div>
+</div>
+
+<div [ngClass]="{'backdrop': showOverlay}"></div>
+
+<div class="overlay" *ngIf="showOverlay">
+    <div class="form-container">
+        <form class="registration-form">
+            <div>
+                <button class="close-button" type="button" (click)="toggleOverlay()"><img class="close-icon" src="assets/images/cancel.png"></button>
+            </div>
+            <div class="input-group">
+                <input type="text" id="firstName" placeholder="first name" required>
+                <input type="text" id="lastName" placeholder="last name" required>
+            </div>
+            <div class="input-group">
+                <input type="email" id="email" placeholder="email" required>
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" placeholder="password" required>
+                <input type="password" id="confirmPassword" placeholder="confirm password" required>
+            </div>
+            
+            <div class="input-group center-items">
+                <h3 for="adminRole">Make user an admin role?</h3>
+                <select id="adminRole" required>
+                    <option value="" disabled selected>Pick an option</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            <div class="center-items">
+                <button type="submit" class="submit-button">Submit</button>
+            </div>
+        </form>
     </div>
 </div>
