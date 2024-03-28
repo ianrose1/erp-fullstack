@@ -198,7 +198,8 @@ export class UserService {
       const response = await axios.post(`http://localhost:8080/users`, {
         credentials: {username: profile.email, password},
         profile,
-        isAdmin
+        isAdmin,
+        companyId
       });
       console.log("Post New User Response Data: ", response.data);
       return {status: 200, ...response.data};
