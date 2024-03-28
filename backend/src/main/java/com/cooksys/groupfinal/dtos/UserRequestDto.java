@@ -12,5 +12,8 @@ public class UserRequestDto {
     private ProfileDto profile;
     
     private boolean isAdmin;
+    
+    private Long companyId;
+    
 
 }

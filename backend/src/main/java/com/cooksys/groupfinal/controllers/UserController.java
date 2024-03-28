@@ -41,7 +41,7 @@ public class UserController {
     public FullUserDto deleteUser(@PathVariable long userId) {
         return userService.deleteUser(userId);
     }
-
+    
     @PostMapping()
     public FullUserDto createUser(@RequestBody UserRequestDto userRequestDto) {
         return userService.createUser(userRequestDto);
