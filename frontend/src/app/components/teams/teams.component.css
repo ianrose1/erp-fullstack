@@ -1,0 +1,95 @@
+.teams-page {
+    color: #1BA098;
+    font-family: 'Mulish', sans-serif;
+}
+
+h2 {
+    text-align: center;
+    font-weight: 400;
+    font-size: 1.5em;
+    font-family: 'Mulish', sans-serif;
+}
+
+h4 {
+    text-align: center;
+    font-weight: 400;
+    color: white;
+}
+
+.header-left {
+    color: white;
+    font-size: 24px;
+}
+
+.header-right {
+    color: white;
+    margin-left: 130px;
+    font-size: 16.24px;
+    margin-top: 30px;
+}
+
+.team-box {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+mat-card {
+    border: none;
+    border-radius: 20px;
+    margin: 50px;
+    width: 373px;
+    height: 340px;
+    background: #0B2D45;
+}
+
+mat-card-header {
+    border: 1px solid #DEB992;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+.member-box {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+mat-card-content {
+    border: none;
+    border-radius: 10.29px;
+    background: #1BA098;
+    width: 103px;
+    height: 32px;
+    text-align: center;
+    margin: 5px;
+}
+
+.member-text {
+    color: white;
+}
+
+.new-team {
+    background: #051622;
+    border-width: 2px, 2px, 2px, 2px;
+    border-style: solid;
+    border-color: #DEB992;
+    border-radius: 20px;
+}
+
+.plus-sign {
+    font-size: 300px;
+    font-weight: 400;
+    text-align: center;
+    color: #DEB992;
+    line-height: 0.9;
+}
+
+.new-team-text {
+    color: #DEB992;
+    text-align: center;
+    font-weight: 400;
+    font-size: 23px;
+    line-height: 0.0001;
+}
