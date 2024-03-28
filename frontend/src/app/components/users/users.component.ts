@@ -22,8 +22,8 @@ export class UsersComponent implements OnInit {
   };
 
   showOverlay = false;
-  createFailed = false;
-  failMessage = '';
+  showFeedback = false;
+  feedbackMessage = '';
 
   constructor(private userService: UserService) { }
   ngOnInit(): void {
@@ -32,20 +32,22 @@ export class UsersComponent implements OnInit {
 
   async onSubmit() {
     console.log('Form Data:', this.formData);
+    this.feedbackMessage = "Processing...";
+    this.showFeedback = true;
     const { firstname, lastname, email, password, confirmation, admin } = this.formData;
     if (password !== confirmation) {
       console.log("Passwords don't match");
-      this.failMessage = "Passwords don't match";
-      this.createFailed = true;
+      this.feedbackMessage = "Passwords don't match";
+      this.showFeedback = true;
     } else {
       const profile: Profile = { firstname, lastname, email, phone: "" }
       const res = await this.userService.createNewUser(profile, password, admin);
       if (res.status === 400) {
         console.log("Could not add new user!");
-        this.failMessage = "Issue creating new user, please try again later";
-        this.createFailed = true;
+        this.feedbackMessage = "Issue creating new user, please try again later";
       } else {
         console.log("Successfully created user!");
+        this.feedbackMessage = "Successfully created user!";
         await this.userService.fetchAllUsers();
         this.toggleOverlay();
       }
@@ -53,6 +55,7 @@ export class UsersComponent implements OnInit {
   }
 
   toggleOverlay() {
+    this.showFeedback = false;
     this.showOverlay = !this.showOverlay;
   }
 

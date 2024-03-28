@@ -97,7 +97,8 @@ export class UserService {
       this.userNameSubject.next(name);
       // this.userNameSubject.next(this.getFirstAndLastInitial("Pinky", "Panther"));
       this.companyListSubject.next(newUser.companies);
-      this.currentCompanyIdSubject.next(newUser.companies[0].id);
+      const companies = newUser.companies;
+      this.currentCompanyIdSubject.next(companies.length > 0 ? companies[0].id : 6);
       this.isLoggedInSubject.next(true);
       this.isAdminSubject.next(newUser.admin);
       console.log("updated admin inside update call")

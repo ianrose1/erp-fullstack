@@ -88,8 +88,8 @@
             <div class="center-items">
                 <button type="submit" class="submit-button">Submit</button>
             </div>
-            <div *ngIf="createFailed" class="error-message">
-                <p>{{ failMessage }}</p>
+            <div *ngIf="showFeedback" class="form-feedback">
+                <p>{{ feedbackMessage }}</p>
             </div>
         </form>
     </div>
