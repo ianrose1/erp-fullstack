@@ -84,7 +84,7 @@ export class HomeComponent implements OnInit {
     const announcementId = this.announcementId;
     console.log("Delete Announcement Id: ", announcementId);
 
-    const res = await this.announcementService.editAnnouncement(announcementId);
+    const res = await this.announcementService.deleteAnnouncement(announcementId);
     if (res.status === 400) {
       console.log("Could not delete announcement!");
       this.feedbackMessage = "Could not delete announcement!";
