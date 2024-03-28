@@ -18,6 +18,7 @@ public class TeamDto {
     private Set<BasicUserDto> users;
 
     private boolean deleted;
+    private Long companyId;
 
 
 }
