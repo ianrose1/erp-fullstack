@@ -38,7 +38,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	
 	@Override
 	public Set<AnnouncementDto> getAllAnnouncements() {
-		List<Announcement> announcementsList = announcementRepository.findAll();
+		List<Announcement> announcementsList = announcementRepository.findAllByDeletedFalse();
 		Set<Announcement> announcementsSet = new HashSet<>(announcementsList);		
 		return announcementMapper.entitiesToDtos(announcementsSet);
 	}
