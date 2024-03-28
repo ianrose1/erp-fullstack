@@ -11,6 +11,9 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class HomeComponent implements OnInit {
 
+  formMode: string = "";
+  announcementId: number = -1;
+
   isAdmin$: Observable<boolean> = this.userService.isAdminObservable();
 
   formatter = new Intl.DateTimeFormat('en-US', {
@@ -20,7 +23,8 @@ export class HomeComponent implements OnInit {
   });
 
   showOverlay = false;
-  createFailed = false;
+  showFeedback = false;
+  feedbackMessage = "";
 
   formData = {
     announcement: ''
@@ -43,6 +47,56 @@ export class HomeComponent implements OnInit {
   }
 
   async onSubmit() {
+    if (!this.formData.announcement && this.formMode !== "delete") {
+      this.feedbackMessage = "Announcement message cannot be blank";
+      this.showFeedback = true;
+      return;
+    }
+    switch (this.formMode) {
+      case "create":
+        await this.create()
+        break;
+      case "edit":
+        await this.edit();
+        break;
+      case "delete":
+        await this.delete();
+        break;
+      default:
+        break;
+    }
+    this.toggleOverlay();
+  }
+
+  toggleOverlay(formMode: string = '', formContent: string = '', selectedAnnouncementId: number = -1) {
+    this.announcementId = selectedAnnouncementId;
+    this.formMode = formMode;
+    this.setFormData(formContent);
+    this.showOverlay = !this.showOverlay;
+    this.showFeedback = false;
+  }
+
+  sortByTimestamp = (a: Announcement, b: Announcement) => {
+    return (new Date(b.date).getTime()) - (new Date(a.date).getTime());
+  };
+
+  async delete() {
+    const announcementId = this.announcementId;
+    console.log("Delete Announcement Id: ", announcementId);
+
+    const res = await this.announcementService.editAnnouncement(announcementId);
+    if (res.status === 400) {
+      console.log("Could not delete announcement!");
+      this.feedbackMessage = "Could not delete announcement!";
+      this.showFeedback = true;
+    } else {
+      console.log("Successfully deleted announcement!");
+      this.feedbackMessage = "Successfully deleted announcement!";
+      await this.announcementService.fetchAnnouncements();
+    }
+  }
+
+  async create() {
     console.log('Form Data:', this.formData);
     const user = this.userService.getCurrentUser();
     const userId = user ? user.id : -1;
@@ -56,21 +110,35 @@ export class HomeComponent implements OnInit {
     const res = await this.announcementService.createNewAnnouncement(companyId, userId, title, message);
     if (res.status === 400) {
       console.log("Could not add announcement!");
-      this.createFailed = true;
+      this.feedbackMessage = "Could not add announcement!";
+      this.showFeedback = true;
     } else {
       console.log("Successfully create announcement!");
+      this.feedbackMessage = "Successfully create announcement!";
       await this.announcementService.fetchAnnouncements();
-      this.toggleOverlay();
+    }
+  }
+  async edit() {
+    console.log('Form Data:', this.formData);
+    const title = "";
+    const message = this.formData.announcement;
+    const announcementId = this.announcementId;
+    console.log("Message: ", message)
+    console.log("Edit Announcement Id: ", announcementId);
+
+    const res = await this.announcementService.editAnnouncement(announcementId, title, message);
+    if (res.status === 400) {
+      console.log("Could not update announcement!");
+      this.feedbackMessage = "Could not update announcement!";
+      this.showFeedback = true;
+    } else {
+      console.log("Successfully updated announcement!");
+      this.feedbackMessage = "Successfully updated announcement!";
+      await this.announcementService.fetchAnnouncements();
     }
   }
 
-  toggleOverlay() {
-    this.showOverlay = !this.showOverlay;
-    this.createFailed = false;
+  setFormData(content: string) {
+    this.formData.announcement = content;
   }
-
-  sortByTimestamp = (a: Announcement, b: Announcement) => {
-    return (new Date(b.date).getTime()) - (new Date(a.date).getTime());
-  };
-
 }

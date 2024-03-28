@@ -51,4 +51,32 @@ export class AnnouncementsService {
   }
 
 
+    async editAnnouncement(announcementId: number, title: string = "", message: string = "") {
+      try {
+        const response = await axios.patch(`http://localhost:8080/announcements/${announcementId}`, {
+          title,
+          message
+        });
+        console.log("Patch Announcement Response Data: ", response.data);
+        return {status: 200, ...response.data}; 
+      }
+      catch (error) {
+        console.error("Error patching announcement:", error);
+        return {status: 400}; 
+      }
+    }
+
+    async deleteAnnouncement(announcementId: number, title: string = "", message: string = "") {
+      try {
+        const response = await axios.delete(`http://localhost:8080/announcements/${announcementId}`);
+        console.log("Delete Announcement Response Data: ", response.data);
+        return {status: 200, ...response.data}; 
+      }
+      catch (error) {
+        console.error("Error deleting announcement:", error);
+        return {status: 400}; 
+      }
+    }
+
+
 }
