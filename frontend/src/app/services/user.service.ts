@@ -243,6 +243,21 @@ export class UserService {
     }
   }
 
+  async updatePassword(userId: number, password: string) {
+    try {
+      const response = await axios.patch(`http://localhost:8080/users/${userId}/reset`, {
+        password
+      });
+      console.log("Update User Password Response Data: ", response.data);
+      return {status: 200, ...response.data};
+    }
+    catch (error) {
+      console.error("Error updating user password:", error);
+
+      return {status: 400}; 
+    }
+  }
+
 
 
 
