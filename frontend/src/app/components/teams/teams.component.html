@@ -4,7 +4,9 @@
         <div class="team-box">
             <ul>
                 <li *ngFor="let team of allTeams">
-                    <p>{{ team.name }} # of Projects: {{ team.description }}</p>
+                    <a [routerLink]="['/projects']">
+                        <p (click)="OnClickTeam(team.id)">{{ team.name }} # of Projects: {{ team.description }}</p>
+                    </a>
                     <div class="members">
                         <h4>Members</h4>
                         <ul>
@@ -16,7 +18,9 @@
                 </li>
             </ul>
             <div class="new-team">
-                <p>New Team</p>
+                <button>
+                    <p>New Team</p>
+                </button>
             </div>
         </div>
     </div>

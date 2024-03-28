@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Team } from '../interfaces/team';
+import BasicUser from '../interfaces/basic-user';
 import axios from 'axios';
 
 @Injectable({
@@ -14,6 +15,9 @@ export class TeamsService {
   private allTeamsSubject = new BehaviorSubject<Team[]>([]);
   allTeams$ = this.allTeamsSubject.asObservable();
 
+  private teamNameSubject = new BehaviorSubject<string>("");
+  teamName$ = this.teamNameSubject.asObservable();
+
   constructor() { }
 
   // getters
@@ -23,6 +27,11 @@ export class TeamsService {
 
   teamObservable(): Observable<Team | undefined> {
     return this.teamSubject.asObservable();
+  }
+
+  updateCurrentTeam(newTeam: Team | undefined) {
+    console.log("newTeam: ", newTeam)
+    this.teamSubject.next(newTeam);
   }
 
   // gets all teams from provided company
@@ -61,9 +70,14 @@ export class TeamsService {
   }
 
   // creates a new team
-  async postNewTeam() {
+  async postNewTeam(id: number, name: string, description: string, teammates: [BasicUser]) {
     try {
-      const response = await axios.post(`http://localhost:8080/team`);
+      const response = await axios.post(`http://localhost:8080/team`, {
+        id,
+        name,
+        description,
+        teammates
+      });
       console.log("Team Response Data: ", response.data);
       this.teamSubject.next(response.data);
     }
