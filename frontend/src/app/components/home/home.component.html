@@ -47,7 +47,7 @@
             </div>
             <div class="tools-container" *ngIf="isAdmin$ | async">
                 <button class="edit-button" (click)="toggleOverlay('edit', announcement.message, announcement.id)">Edit</button>
-                <button class="delete-button" (click)="toggleOverlay('delete', 'Click Submit to delete this announcement', announcementId)">Delete</button>
+                <button class="delete-button" (click)="toggleOverlay('delete', 'Click Submit to delete this announcement', announcement.id)">Delete</button>
             </div>
         </div>
     </div>
