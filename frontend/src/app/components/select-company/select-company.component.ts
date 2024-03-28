@@ -16,6 +16,7 @@ export class SelectCompanyComponent implements OnInit, OnDestroy {
   @Output() formValueEmitter: EventEmitter<string> = new EventEmitter<string>();
   // companies: string[] = ['FedEx', 'CookSystems', 'Google'];
   companies$: Observable<Company[]> = this.userService.companyListObservable();
+  companies: Company[] = [];
   defaultCompany = 'Pick an option';
   configForm!: FormGroup;
 
@@ -24,6 +25,9 @@ export class SelectCompanyComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
+    this.userService.companyListObservable().subscribe((list) => {
+      this.companies = list;
+    })
     this.createForm();
     this.navService.hide();
   }
