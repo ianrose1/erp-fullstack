@@ -30,10 +30,7 @@ export class HomeComponent implements OnInit {
     announcement: ''
   };
 
-  announcements$: Observable<Announcement[]> = this.announcementService.announcementObservable().pipe(
-    map(announcements => announcements.sort((a: Announcement, b: Announcement) => {
-      return (new Date(b.date).getTime()) - (new Date(a.date).getTime());
-    })));
+  announcements$: Observable<Announcement[]> = this.announcementService.announcementObservable();
 
   constructor(private announcementService: AnnouncementsService, private userService: UserService) { }
 
@@ -72,8 +69,13 @@ export class HomeComponent implements OnInit {
     this.announcementId = selectedAnnouncementId;
     this.formMode = formMode;
     this.setFormData(formContent);
+    if (formMode === "delete") {
+      this.feedbackMessage = "Click Submit to delete this announcement";
+      this.showFeedback = true;
+    } else {
+      this.showFeedback = false;
+    }
     this.showOverlay = !this.showOverlay;
-    this.showFeedback = false;
   }
 
   sortByTimestamp = (a: Announcement, b: Announcement) => {

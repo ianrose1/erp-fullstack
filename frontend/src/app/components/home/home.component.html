@@ -47,7 +47,7 @@
             </div>
             <div class="tools-container" *ngIf="isAdmin$ | async">
                 <button class="edit-button" (click)="toggleOverlay('edit', announcement.message, announcement.id)">Edit</button>
-                <button class="delete-button" (click)="toggleOverlay('delete', 'Click Submit to delete this announcement', announcement.id)">Delete</button>
+                <button class="delete-button" (click)="toggleOverlay('delete', announcement.message, announcement.id)">Delete</button>
             </div>
         </div>
     </div>
@@ -72,6 +72,9 @@
             </div>
             <div *ngIf="showFeedback" class="form-feedback">
                 <p>{{ feedbackMessage }}</p>
+            </div>
+            <div>
+                <p class="placeholder-text">Some placeholder text to maintain container size</p>
             </div>
         </form>
     </div>

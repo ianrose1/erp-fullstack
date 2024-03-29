@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import FullUser from 'src/app/interfaces/full-user';
 import Profile from 'src/app/interfaces/profile';
 import { UserService } from 'src/app/services/user.service';
@@ -12,6 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 export class UsersComponent implements OnInit {
   allUsers$: Observable<FullUser[]> = this.userService.allUsersObservable();
 
+  emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   formMode: string = "";
   userId: number = -1;
 
@@ -62,6 +63,12 @@ export class UsersComponent implements OnInit {
     if (this.formMode !== "delete" && password !== confirmation) {
       console.log("Passwords don't match");
       this.feedbackMessage = "Passwords don't match";
+      return;
+    }
+
+    if (!this.emailRegex.test(email)) {
+      console.log("Please enter a valid email");
+      this.feedbackMessage = "Please enter a valid email";
       return;
     }
 
@@ -184,7 +191,7 @@ export class UsersComponent implements OnInit {
     this.userId = userId;
 
     if (formMode === "delete") {
-      this.feedbackMessage = "Click Submit to delete this user";
+      this.feedbackMessage = `Click Submit to delete user '${this.formData.firstname}  ${this.formData.lastname}'`;
       this.showFeedback = true;
     } else {
       this.showFeedback = false;

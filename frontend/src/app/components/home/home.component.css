@@ -145,7 +145,7 @@ p {
     align-items: center;
     justify-content: center;
     border-radius: 20px;
-    padding: 3% 9%;
+    padding: 3% 9% 0 9%;;
 
     position: absolute;
     top: 50%;
@@ -153,6 +153,11 @@ p {
     transform: translate(-50%, -50%);
     color: #DEB992;
     z-index: 22;
+}
+
+.placeholder-text {
+    color: #0B2D45;
+    cursor: default;
 }
 
 .registration-form {
