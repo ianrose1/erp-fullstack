@@ -139,9 +139,6 @@ public class UserServiceImpl implements UserService {
         if (userToUpdate == null) {
             throw new NotFoundException("User not found with ID: " + userId);
         }
-        if (userRequestDto.getCredentials() != null) {
-            userToUpdate.setCredentials(credentialsMapper.dtoToEntity(userRequestDto.getCredentials()));
-        }
         if (userRequestDto.getProfile() != null) {
             userToUpdate.setProfile(profileMapper.dtoToEntity(userRequestDto.getProfile()));
         }

@@ -22,12 +22,20 @@ export class AnnouncementsService {
     return this.announcementsSubject.value;
   }
 
+  updateAnnouncements(announcements: Announcement[]) {
+   const sortedAnnouncements = announcements.sort((a: Announcement, b: Announcement) => {
+      return (new Date(b.date).getTime()) - (new Date(a.date).getTime());
+    })
+    this.announcementsSubject.next(sortedAnnouncements);
+  }
+
   async fetchAnnouncements() {
     try {
       const companyId: number = this.userService.getCurrentCompanyId();
       const response = await axios.get(`http://localhost:8080/company/${companyId}/announcements`);
       console.log("Announcements Response Data: ", response.data);
-      this.announcementsSubject.next(response.data);
+      const announcements: Announcement[] = response.data;
+      this.updateAnnouncements(announcements);
     }
     catch (error) {
       console.error("Error fetching announcements:", error);
