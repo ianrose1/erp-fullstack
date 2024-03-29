@@ -64,10 +64,15 @@ mat-card-content {
     height: 32px;
     text-align: center;
     margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 2px !important;
 }
 
 .member-text {
     color: white;
+    line-height: 32px;
 }
 
 .new-team {
@@ -186,10 +191,44 @@ mat-card-content {
     justify-content: right;
 }
 
+.close-button-small {
+    font-size: 1.2rem;
+    color: #ffffff;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
 .close-icon {
     width: 30%;
     height: auto;
     cursor: pointer;
+}
+
+.close-icon-small {
+    width: 20px;
+    height: auto;
+    cursor: pointer;
+}
+
+.selected-members {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.member-container {
+    display: flex;
+    align-items: center;
+    background: #1BA098;
+    border-radius: 10.29px;
+    padding: 5px 10px;
+    /* Adjust padding as needed */
+    margin: 5px;
+}
+
+.select-member {
+    color: white;
+    margin-right: 10px;
 }
 
 

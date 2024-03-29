@@ -3,7 +3,7 @@
         <a [routerLink]="['/teams']" class="back-button">&lt; back</a>
     </div>
     <h1 class="title">Projects for team {{ currentTeam?.name }}</h1>
-    <button class="new-button">New</button>
+    <button *ngIf="isAdmin$ | async" (click)="toggleOverlay('create', undefined)" class="new-button">New</button>
     <div class="projects-box">
         <div class="project-box" *ngFor="let project of allProjects; let last = last">
             <div class="project" [class.last]="last">
@@ -14,8 +14,40 @@
                     </p>
                     <p class="description">{{ project.description }}</p>
                 </div>
-                <button class="edit-button">Edit</button>
+                <button (click)="toggleOverlay('edit', project)" class="edit-button">Edit</button>
             </div>
         </div>
+    </div>
+</div>
+
+<div [ngClass]="{'backdrop': showOverlay}"></div>
+
+<div class="overlay" *ngIf="showOverlay">
+    <div class="form-container">
+        <form class="registration-form" (ngSubmit)="onSubmit()">
+            <div>
+                <button class="close-button" type="button" (click)="toggleOverlay('', undefined)"><img
+                        class="close-icon" src="assets/images/cancel.png"></button>
+            </div>
+            <div class="input-group">
+                <input [(ngModel)]="formData.name" name="project-name" type="text" placeholder="project name" required>
+                <input [(ngModel)]="formData.description" name="description" type="text" placeholder="description"
+                    required>
+            </div>
+            <div class="input-group center-items" *ngIf="action === 'edit' && (isAdmin$ | async)">
+                <h3 for="active">Active?</h3>
+                <select [(ngModel)]="formData.active" name="active" id="active" required>
+                    <option value="" disabled [selected]>Pick an option</option>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+            <div class="center-items">
+                <button type="submit" class="submit-button">Submit</button>
+            </div>
+            <div *ngIf="showFeedback" class="form-feedback">
+                <p>{{ feedbackMessage }}</p>
+            </div>
+        </form>
     </div>
 </div>

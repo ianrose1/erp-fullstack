@@ -85,7 +85,6 @@ export class ProjectsService {
   async postNewProject(id: number, name: string, description: string, active: boolean, team: Team) {
     try {
       const response = await axios.post(`http://localhost:8080/projects`, {
-        id,
         name,
         description,
         active,
@@ -93,9 +92,29 @@ export class ProjectsService {
       });
       console.log("Project Response Data: ", response.data);
       this.projectSubject.next(response.data);
+      return { status: 200, ...response.data };
     }
     catch (error) {
       console.error("Error fetching project:", error);
+      return { status: 400 };
+    }
+  }
+
+  async updateProject(projectId: number, id: number, name: string, description: string, active: boolean, team: Team) {
+    try {
+      const response = await axios.patch(`http://localhost:8080/projects/project/${projectId}`, {
+        name,
+        description,
+        active,
+        team
+      });
+      console.log("Project Response Data: ", response.data);
+      this.projectSubject.next(response.data);
+      return { status: 200, ...response.data };
+    }
+    catch (error) {
+      console.error("Error updating project:", error);
+      return { status: 400 };
     }
   }
 }
