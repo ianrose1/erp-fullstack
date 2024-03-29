@@ -64,6 +64,7 @@ public class TeamServiceImpl implements TeamService {
         }
         Company company = optionalCompany.get();
         teamToCreate.setCompany(company);
+        teamRepository.saveAndFlush(teamToCreate);
         company.getTeams().add(teamToCreate);
         companyRepository.save(company);
         return teamMapper.entityToDto(teamToCreate);

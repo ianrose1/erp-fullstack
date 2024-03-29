@@ -40,8 +40,6 @@ h2, p {
     background-color: #051623;
 }
 
-
-
 .header {
     color: #FFFFFF;
     text-align: center;
@@ -66,8 +64,8 @@ h2, p {
     /* Inactive red color */
 }
 
-
 /* --------------------------------------------- */
+
 .backdrop {
     position: fixed;
     top: 0;
@@ -77,7 +75,6 @@ h2, p {
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 21;
 }
-
 
 .form-container {
     background-color: #0B2D45;
@@ -130,7 +127,6 @@ h2, p {
     cursor: pointer;
 }
 
-
 .submit-button {
     background-color: #1BA098;
     padding: 3% 10%;
@@ -161,7 +157,6 @@ h2, p {
     cursor: pointer;
 }
 
-
 .center-items {
     display: flex;
     flex-direction: column;
@@ -172,6 +167,11 @@ h2, p {
     align-items: center;
     text-align: center;
 }
+
+#form-feedback-p {
+    color: #DEB992
+}
+
 .options-box {
     display: flex;
     justify-content: space-evenly;

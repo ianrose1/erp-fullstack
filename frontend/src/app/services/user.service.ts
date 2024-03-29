@@ -105,13 +105,37 @@ export class UserService {
     }
   }
 
+  updatAllUsers(users: FullUser[]) {
+    const sortedUsers: FullUser[] = users.sort((a: FullUser, b: FullUser) => {
+      const aLastName = a.profile.lastname.toLowerCase();
+      const bLastName = b.profile.lastname.toLowerCase();
+      const aFirstName = a.profile.firstname.toLowerCase();
+      const bFirstName = b.profile.firstname.toLowerCase();
+      if (aLastName > bLastName) {
+        return 1;
+      } else if (aLastName < bLastName) {
+        return -1;
+      } else {
+        // Same last name, go to first name
+        if (aFirstName > bFirstName) {
+          return 1;
+        } else if (aFirstName < bFirstName) {
+          return -1;
+        } else {
+          return 0;
+        }
+      }
+    })
+    this.allUsersSubject.next(sortedUsers);
+  }
 
   async fetchAllUsers() {
     try {
       const companyId: number = this.getCurrentCompanyId();
       const response = await axios.get(`http://localhost:8080/company/${companyId}/users`)
       console.log("All Users Response Data: ", response.data);
-      this.allUsersSubject.next(response.data);
+      const users: FullUser[] = response.data
+      this.updatAllUsers(users);
     } catch (error) {
         console.error("Error fetching users:", error);
     }
@@ -238,6 +262,21 @@ export class UserService {
     }
     catch (error) {
       console.error("Error deleting user:", error);
+
+      return {status: 400}; 
+    }
+  }
+
+  async updatePassword(userId: number, password: string) {
+    try {
+      const response = await axios.patch(`http://localhost:8080/users/${userId}/reset`, {
+        password
+      });
+      console.log("Update User Password Response Data: ", response.data);
+      return {status: 200, ...response.data};
+    }
+    catch (error) {
+      console.error("Error updating user password:", error);
 
       return {status: 400}; 
     }
