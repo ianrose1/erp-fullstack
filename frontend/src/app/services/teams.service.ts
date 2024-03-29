@@ -73,7 +73,6 @@ export class TeamsService {
   async postNewTeam(id: number, name: string, description: string, users: [BasicUser], companyId: number) {
     try {
       const response = await axios.post(`http://localhost:8080/team`, {
-        id,
         name,
         description,
         users,
