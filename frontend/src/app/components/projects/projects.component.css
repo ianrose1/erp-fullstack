@@ -1,0 +1,107 @@
+.projects-page {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.back-button {
+    color: #1BA098;
+    background: #051622;
+    margin-bottom: 10px;
+    margin-right: 800px;
+    align-self: flex-start;
+}
+
+.title {
+    text-align: center;
+    color: #1BA098;
+    font-weight: 400;
+    font-family: 'Mulish';
+    font-style: normal;
+    font-size: 48px;
+}
+
+.new-button {
+    width: 103px;
+    height: 32px;
+    border-radius: 10.29px;
+    background: #1BA098;
+    color: white;
+    border: none;
+    margin-bottom: 10px;
+    margin-left: 746px;
+}
+
+.projects-box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.project-box {
+    margin-bottom: 20px;
+}
+
+.project {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 10px;
+    border: 1px solid #DEB992;
+    border-left: none;
+    border-right: none;
+}
+
+.project-info {
+    flex-grow: 1;
+}
+
+.name {
+    color: white;
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+}
+
+.description {
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16.2439px;
+    color: rgba(255, 255, 255, 0.75);
+    margin-top: 5px;
+}
+
+.edit-button {
+    width: 103px;
+    height: 32px;
+    border-radius: 10.29px;
+    background: #DEB992;
+    border: none;
+    color: black;
+    margin-top: 90px;
+}
+
+.active {
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: rgba(34, 221, 42, 0.75);
+}
+
+.inactive {
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #DF0F0FBF;
+}
