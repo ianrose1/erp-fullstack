@@ -8,7 +8,7 @@
                         <mat-card-header>
                             <p class="header-left">{{ team.name }}
                             </p>
-                            <p class="header-right"># of Projects: {{ projectsLength[i] }}
+                            <p class="header-right"># of Projects: {{ team.projectLength }}
                             </p>
                         </mat-card-header>
                     </a>
@@ -26,7 +26,7 @@
                     </div>
                 </mat-card>
             </div>
-            <mat-card class="new-team">
+            <mat-card *ngIf="isAdmin$ | async" class="new-team">
                 <div>
                     <div class="plus-sign" (click)="toggleOverlay()">
                         +
@@ -63,8 +63,12 @@
                 </select>
             </div>
             <div class="selected-members">
-                <p *ngFor="let member of selectedMembers">{{ member.profile.firstname }} {{
-                    member.profile.lastname.charAt(0) }}.</p>
+                <div class="member-container" *ngFor="let member of selectedMembers">
+                    <p class="select-member">{{ member.profile.firstname }} {{ member.profile.lastname.charAt(0) }}.</p>
+                    <button class="close-button-small" type="button" (click)="removeMember(member)">
+                        <img class="close-icon-small" src="assets/images/cancel.png">
+                    </button>
+                </div>
             </div>
             <div class="center-items">
                 <button type="submit" class="submit-button">Submit</button>

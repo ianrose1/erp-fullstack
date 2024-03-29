@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Team } from '../../interfaces/team';
 import { TeamsService } from 'src/app/services/teams.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription, catchError, forkJoin, of } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 import { ProjectsService } from 'src/app/services/projects.service';
 import FullUser from 'src/app/interfaces/full-user';
@@ -28,10 +28,13 @@ export class TeamsComponent implements OnInit, OnDestroy {
   projectsLength: number[] = [];
   newTeam: Team | undefined = undefined;
   employees: FullUser[] = [];
-  selectedMembers: BasicUser[] = [];
+  selectedMembers: FullUser[] = [];
+  teamsWithProjectsCount: { team: Team, projectsCount: number }[] = [];
 
   existingIds: number[] = [];
   randomId: number = 0;
+
+  isAdmin$: Observable<boolean> = this.userService.isAdminObservable();
 
   constructor(private teamsService: TeamsService, private userService: UserService, private projectsService: ProjectsService) { }
 
@@ -69,6 +72,15 @@ export class TeamsComponent implements OnInit, OnDestroy {
           return 0; // Team names are equal
         });
 
+        this.subscriptions.add(
+          this.isAdmin$.subscribe(isAdmin => {
+            const currentUser = this.userService.getCurrentUser();
+            if (currentUser && !isAdmin) {
+              this.allTeams = this.allTeams.filter(team => team.users.some(user => user.id === currentUser.id));
+            }
+          })
+        )
+
         this.allTeams.forEach((team) => {
           this.existingIds.push(team.id);
         });
@@ -94,7 +106,8 @@ export class TeamsComponent implements OnInit, OnDestroy {
   async onSubmit() {
     this.feedbackMessage = "Processing...";
     this.showFeedback = true;
-    const basicUserDto: [BasicUser] = this.convertToDto(this.selectedMembers);
+    const basicSelectedMembers = this.selectedMembers.map(member => this.convertUser(member))
+    const basicUserDto: [BasicUser] = this.convertToDto(basicSelectedMembers);
     const res = await this.teamsService.postNewTeam(11, this.formData.name, this.formData.description, basicUserDto, this.companyId);
     if (res.status === 400) {
       console.log("Could not add new team!");
@@ -142,11 +155,18 @@ export class TeamsComponent implements OnInit, OnDestroy {
     this.projectsService.updateTeamId(teamId);
   }
 
+  removeMember(removedTeamMember: FullUser) {
+    const index = this.selectedMembers.findIndex(member => member === removedTeamMember);
+    if (index !== -1) {
+      this.selectedMembers.splice(index, 1);
+      this.employees.push(removedTeamMember);
+    }
+  }
+
   // add members to new team
   handleMemberSelection() {
-    const convertedUser = this.convertUser(this.formData.member);
-    if (!this.selectedMembers.includes(convertedUser)) {
-      this.selectedMembers.push(convertedUser);
+    if (!this.selectedMembers.includes(this.formData.member)) {
+      this.selectedMembers.push(this.formData.member);
       this.employees = this.employees.filter(emp => emp !== this.formData.member);
       console.log(this.employees);
     }
@@ -166,8 +186,7 @@ export class TeamsComponent implements OnInit, OnDestroy {
 
   // Function to check if an employee has already been selected
   isEmployeeSelected(employee: FullUser): boolean {
-    const compUser: BasicUser = this.convertUser(employee);
-    return this.selectedMembers.includes(compUser);
+    return this.selectedMembers.includes(employee);
   }
 
   generateRandomId(): number {
@@ -188,7 +207,6 @@ export class TeamsComponent implements OnInit, OnDestroy {
     }
     return randomId;
   }
-
 
   // bring new team overlay on screen
   toggleOverlay() {

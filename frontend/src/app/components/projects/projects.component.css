@@ -30,7 +30,11 @@
     color: white;
     border: none;
     margin-bottom: 10px;
-    margin-left: 1002px;
+    margin-left: 993px;
+}
+
+.new-button:hover {
+    cursor: pointer;
 }
 
 .projects-box {
@@ -51,6 +55,7 @@
     border: 1px solid #DEB992;
     border-left: none;
     border-right: none;
+    border-bottom: none;
 }
 
 .project-info {
@@ -84,6 +89,10 @@
     margin-top: 90px;
 }
 
+.edit-button:hover {
+    cursor: pointer;
+}
+
 .active {
     font-family: 'Mulish';
     font-style: normal;
@@ -104,4 +113,112 @@
     align-items: center;
     text-align: center;
     color: #DF0F0FBF;
+}
+
+
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 21;
+}
+
+.form-container {
+    background-color: #0B2D45;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    padding: 3% 9%;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #DEB992;
+    z-index: 22;
+}
+
+.registration-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group input {
+    fill: none;
+    border: none;
+    background-color: #0B2D45;
+    border-bottom: 1px solid #DEB992;
+    margin: 5% 2%;
+    ;
+    width: 100%;
+    text-align: left;
+    padding: 2% 0;
+    color: #DEB992
+}
+
+.input-group select {
+    background-color: white;
+    text-align: center;
+    color: #005594;
+    font-weight: bold;
+    border: 1px solid lavender;
+    padding: 4px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-button {
+    background-color: #1BA098;
+    padding: 3% 10%;
+    border: 2px solid #1BA098;
+    border-radius: 10px;
+    color: #FFFFFF;
+    cursor: pointer;
+    margin-top: 20%;
+    width: 50%;
+}
+
+.close-button {
+    font-size: 1.5rem;
+    color: #ffffff;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: right;
+}
+
+.close-icon {
+    width: 30%;
+    height: auto;
+    cursor: pointer;
+}
+
+.center-items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-feedback {
+    align-items: center;
+    text-align: center;
+}
+
+#form-feedback-p {
+    color: #DEB992
 }
