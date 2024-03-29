@@ -66,7 +66,7 @@ export class UsersComponent implements OnInit {
       return;
     }
 
-    if (!this.emailRegex.test(email)) {
+    if ((this.formMode === 'edit' || this.formMode === 'create') && !this.emailRegex.test(email)) {
       console.log("Please enter a valid email");
       this.feedbackMessage = "Please enter a valid email";
       return;
