@@ -50,7 +50,7 @@ export class TeamsService {
     try {
       const response = await axios.get('http://localhost:8080/team');
       console.log("All Teams Response Data: ", response.data);
-      // TODO: Set up behavior subject for all teams
+      this.allTeamsSubject.next(response.data);
     }
     catch (error) {
       console.error("Error fetching teams:", error);
@@ -70,19 +70,21 @@ export class TeamsService {
   }
 
   // creates a new team
-  async postNewTeam(id: number, name: string, description: string, teammates: [BasicUser]) {
+  async postNewTeam(id: number, name: string, description: string, users: [BasicUser], companyId: number) {
     try {
       const response = await axios.post(`http://localhost:8080/team`, {
         id,
         name,
         description,
-        teammates
+        users,
+        companyId
       });
       console.log("Team Response Data: ", response.data);
-      this.teamSubject.next(response.data);
+      return { status: 200, ...response.data };
     }
     catch (error) {
-      console.error("Error fetching team:", error);
+      console.error("Error creating team:", error);
+      return { status: 400 };
     }
   }
 }

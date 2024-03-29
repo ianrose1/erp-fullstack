@@ -2,15 +2,13 @@
     <h2>Teams</h2>
     <div class="teams-box">
         <div class="team-box">
-            <div *ngFor="let team of allTeams">
+            <div *ngFor="let team of allTeams; let i = index">
                 <mat-card>
                     <a [routerLink]="['/projects']" (click)="OnClickTeam(team.id)">
                         <mat-card-header>
                             <p class="header-left">{{ team.name }}
                             </p>
-                            <p class="header-right">
-                                # of Projects: 4
-                                <!-- TODO: implement get projects by team -->
+                            <p class="header-right"># of Projects: {{ projectsLength[i] }}
                             </p>
                         </mat-card-header>
                     </a>
@@ -30,12 +28,50 @@
             </div>
             <mat-card class="new-team">
                 <div>
-                    <div class="plus-sign">
+                    <div class="plus-sign" (click)="toggleOverlay()">
                         +
                     </div>
                     <p class="new-team-text">New Team</p>
                 </div>
             </mat-card>
         </div>
+    </div>
+</div>
+
+<div [ngClass]="{'backdrop': showOverlay}"></div>
+
+<div class="overlay" *ngIf="showOverlay">
+    <div class="form-container">
+        <form class="registration-form" (ngSubmit)="onSubmit()">
+            <div>
+                <button class="close-button" type="button" (click)="toggleOverlay()"><img class="close-icon"
+                        src="assets/images/cancel.png"></button>
+            </div>
+            <div class="input-group">
+                <input [(ngModel)]="formData.name" name="team-name" type="text" placeholder="team name" required>
+                <input [(ngModel)]="formData.description" name="description" type="text" placeholder="description"
+                    required>
+            </div>
+            <div class="input-group center-items">
+                <h3 for="member">Select Members</h3>
+                <select [(ngModel)]="formData.member" name="member" id="member" required
+                    (change)="handleMemberSelection()">
+                    <option value="false" disabled [selected]>Pick an option</option>
+                    <option *ngFor="let employee of employees" [ngValue]="employee">
+                        {{ employee.profile.firstname }} {{ employee.profile.lastname.charAt(0) }}.
+                    </option>
+                </select>
+            </div>
+            <div class="selected-members">
+                <p *ngFor="let member of selectedMembers">{{ member.profile.firstname }} {{
+                    member.profile.lastname.charAt(0) }}.</p>
+            </div>
+            <div class="center-items">
+                <button type="submit" class="submit-button">Submit</button>
+            </div>
+            <div *ngIf="showFeedback" class="form-feedback">
+                <p>{{ feedbackMessage }}</p>
+            </div>
+        </form>
     </div>
 </div>
