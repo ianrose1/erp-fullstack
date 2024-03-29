@@ -9,7 +9,7 @@
     color: #1BA098;
     background: #051622;
     margin-bottom: 10px;
-    margin-right: 800px;
+    margin-right: 1300px;
     align-self: flex-start;
 }
 
@@ -30,13 +30,13 @@
     color: white;
     border: none;
     margin-bottom: 10px;
-    margin-left: 746px;
+    margin-left: 1002px;
 }
 
 .projects-box {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 80%;
 }
 
 .project-box {
