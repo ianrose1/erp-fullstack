@@ -13,7 +13,6 @@ import { TeamsComponent } from './components/teams/teams.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [NotLoggedInGuard] },
   { path: '', component: HomeComponent, canActivate: [LoggedInGuard] },
-  // {path: 'home', component: HomeComponent, canActivate: [LoggedInGuard]},
   { path: 'company', component: SelectCompanyComponent, canActivate: [LoggedInGuard, AdminGuard] },
   { path: 'projects', component: ProjectsComponent, canActivate: [LoggedInGuard] },
   { path: 'teams', component: TeamsComponent, canActivate: [LoggedInGuard] },
